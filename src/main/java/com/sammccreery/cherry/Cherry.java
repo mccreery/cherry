@@ -1,7 +1,6 @@
-package com.mccreery.cherry;
+package com.sammccreery.cherry;
 
-
-import com.mccreery.cherry.registry.CherryItems;
+import com.sammccreery.cherry.registry.CherryItems;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;

@@ -1,15 +1,15 @@
-package com.mccreery.cherry.item;
+package com.sammccreery.cherry.item;
 
 import java.util.List;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemPickaxe;
+import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 
-public class ItemEmeraldPickaxe extends ItemPickaxe {
-	public ItemEmeraldPickaxe(ToolMaterial material) {
+public class ItemEmeraldShovel extends ItemSpade {
+	public ItemEmeraldShovel(ToolMaterial material) {
 		super(material);
 	}
 

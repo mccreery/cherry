@@ -1,11 +1,11 @@
-package com.mccreery.cherry.item;
+package com.sammccreery.cherry.item;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.mccreery.cherry.registry.CherryItems;
-import com.mccreery.cherry.util.ResourceName;
+import com.sammccreery.cherry.registry.CherryItems;
+import com.sammccreery.cherry.util.ResourceName;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;

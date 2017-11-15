@@ -1,8 +1,8 @@
-package com.mccreery.cherry.registry;
+package com.sammccreery.cherry.registry;
 
-import com.mccreery.cherry.item.ResourceMaterial;
-import com.mccreery.cherry.util.ResourceName;
-import com.mccreery.cherry.util.ResourceName.Format;
+import com.sammccreery.cherry.item.ResourceMaterial;
+import com.sammccreery.cherry.util.ResourceName;
+import com.sammccreery.cherry.util.ResourceName.Format;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;

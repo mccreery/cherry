@@ -1,8 +1,8 @@
-package com.mccreery.cherry.util;
+package com.sammccreery.cherry.util;
 
 import java.util.regex.Pattern;
 
-import com.mccreery.cherry.Cherry;
+import com.sammccreery.cherry.Cherry;
 
 import net.minecraft.util.ResourceLocation;
 

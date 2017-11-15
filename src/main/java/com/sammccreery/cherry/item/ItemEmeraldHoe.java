@@ -1,15 +1,15 @@
-package com.mccreery.cherry.item;
+package com.sammccreery.cherry.item;
 
 import java.util.List;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemSpade;
+import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
 
-public class ItemEmeraldShovel extends ItemSpade {
-	public ItemEmeraldShovel(ToolMaterial material) {
+public class ItemEmeraldHoe extends ItemHoe {
+	public ItemEmeraldHoe(ToolMaterial material) {
 		super(material);
 	}
 

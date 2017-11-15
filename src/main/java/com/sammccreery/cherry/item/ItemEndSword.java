@@ -1,4 +1,4 @@
-package com.mccreery.cherry.item;
+package com.sammccreery.cherry.item;
 
 import net.minecraft.item.ItemSword;
 
