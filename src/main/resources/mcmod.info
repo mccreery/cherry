@@ -1,9 +1,9 @@
 [{
-	"modid": "cherry",
+	"modid": "${modid}",
 	"name": "Cherry",
 	"description": "A cherry on top! Combined ideas from many previous failed or small mods.",
-	"version": "1.0",
-	"mcversion": "1.7.10",
+	"version": "${version}",
+	"mcversion": "${mcversion}",
 	"authorList": ["NukeDuck"],
 	"credits": "",
 	"logoFile": "",

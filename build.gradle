@@ -2,40 +2,40 @@ buildscript {
 	repositories {
 		mavenCentral()
 		maven {
-			name = forge
-			url  = httpfiles.minecraftforge.netmaven
+			name = "forge"
+			url  = "http://files.minecraftforge.net/maven"
 		}
 		maven {
-			name = sonatype
-			url  = httpsoss.sonatype.orgcontentrepositoriessnapshots
+			name = "sonatype"
+			url  = "https://oss.sonatype.org/content/repositories/snapshots/"
 		}
 	}
 	dependencies {
-		classpath net.minecraftforge.gradleForgeGradle1.2-SNAPSHOT
+		classpath "net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT"
 	}
 }
 
-apply plugin forge
+apply plugin: "forge"
 
-version          = 1.2
-group            = com.mccreery.cherry
-archivesBaseName = cherry
+version          = "1.0"
+group            = "com.sammccreery.cherry"
+archivesBaseName = "cherry"
 
 minecraft {
-	version = 1.7.10-10.13.4.1614-1.7.10
-	runDir  = eclipse
-	replace ${version} project.version, ${mcversion} project.minecraft.version
+	version = "1.7.10-10.13.4.1614-1.7.10"
+	runDir  = "eclipse"
+	// replace "\${version}": project.version, "\${mcversion}": project.minecraft.version, "\${modid}": project.archivesBaseName
 }
 
-jar.archiveName = archivesBaseName + - + project.version + - + project.minecraft.version + .jar
+jar.archiveName = archivesBaseName + "-" + project.version + "-" + project.minecraft.version + ".jar"
 
 processResources {
-	inputs.property version, project.version
-	inputs.property mcversion, project.minecraft.version
+	inputs.property "version", project.version
+	inputs.property "mcversion", project.minecraft.version
 
 	from(sourceSets.main.resources.srcDirs) {
-		include mcmod.info
-		expand version project.version, mcversion project.minecraft.version
+		include "mcmod.info"
+		expand "version": project.version, "mcversion": project.minecraft.version, "modid": project.archivesBaseName
 	}
-	from(sourceSets.main.resources.srcDirs) {exclude mcmod.info}
+	from(sourceSets.main.resources.srcDirs) {exclude "mcmod.info"}
 }

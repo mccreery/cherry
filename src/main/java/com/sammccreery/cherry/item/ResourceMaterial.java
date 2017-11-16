@@ -1,18 +1,23 @@
 package com.sammccreery.cherry.item;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import com.sammccreery.cherry.registry.CherryItems;
 import com.sammccreery.cherry.util.ResourceName;
 
+import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemSpade;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 
 public enum ResourceMaterial {
@@ -40,6 +45,20 @@ public enum ResourceMaterial {
 			items.put(ItemType.RESOURCE, Item.getItemFromBlock(Blocks.end_stone));
 			items.put(ItemType.SWORD, new ItemEndSword(material));
 		}
+
+		@Override
+		protected void registerRecipes() {
+			GameRegistry.addRecipe(new ItemStack(items.get(ItemType.SWORD)),
+				" # ", " # ", "@|@", '#', items.get(ItemType.RESOURCE), '|', Items.stick, '@', Items.ender_eye);
+			/*GameRegistry.addRecipe(new ItemStack(items.get(ItemType.PICKAXE)),
+				"###", " @ ", " | ", '#', items.get(ItemType.RESOURCE), '|', Items.stick, '@', Items.ender_eye);
+			GameRegistry.addRecipe(new ItemStack(items.get(ItemType.AXE)),
+				"##", "#@", " |", '#', items.get(ItemType.RESOURCE), '|', Items.stick, '@', Items.ender_eye);
+			GameRegistry.addRecipe(new ItemStack(items.get(ItemType.SHOVEL)),
+				"#", "@", "|", '#', items.get(ItemType.SHOVEL), '|', Items.stick, '@', Items.ender_eye);
+			GameRegistry.addRecipe(new ItemStack(items.get(ItemType.HOE)),
+				"##", " @", " |", '#', items.get(ItemType.RESOURCE), '|', Items.stick, '@', Items.ender_eye);*/
+		}
 	};
 
 	public final ToolMaterial material;
@@ -54,10 +73,11 @@ public enum ResourceMaterial {
 	public void init() {
 		addItems();
 		registerItems();
+		registerRecipes();
 	}
 
 	protected void addItems() {
-		items.put(ItemType.RESOURCE, new Item());
+		items.put(ItemType.RESOURCE, new Item().setCreativeTab(CreativeTabs.tabMaterials));
 		items.put(ItemType.SWORD, new ItemSword(material));
 		items.put(ItemType.PICKAXE, new ItemPickaxe(material));
 		items.put(ItemType.AXE, new ItemAxe(material));
@@ -74,18 +94,48 @@ public enum ResourceMaterial {
 		}
 	}
 
+	protected ItemStack createStack(ItemType type) {
+		List<ItemStack> temp = new ArrayList<ItemStack>();
+		Item item = items.get(type);
+		item.getSubItems(item, item.getCreativeTab(), temp);
+
+		return !temp.isEmpty() ? temp.get(0) : new ItemStack(item);
+	}
+
+	protected void registerRecipes() {
+		for(ItemType type : items.keySet()) {
+			if(type.recipe.length > 0) {
+				Object[] params = new Object[type.recipe.length + 4];
+
+				int i;
+				for(i = 0; i < type.recipe.length; i++) {
+					params[i] = type.recipe[i];
+				}
+				params[i++] = '#';
+				params[i++] = items.get(ItemType.RESOURCE);
+				params[i++] = '|';
+				params[i++] = Items.stick;
+
+				GameRegistry.addRecipe(createStack(type), params);
+			}
+		}
+	}
+
 	public enum ItemType {
-		SWORD(new ResourceName("sword")),
-		PICKAXE(new ResourceName("pickaxe")),
-		AXE(new ResourceName("axe")),
-		SHOVEL(new ResourceName("shovel")),
-		HOE(new ResourceName("hoe")),
-		RESOURCE(new ResourceName(""));
+		SWORD(new ResourceName("sword"), "#", "#", "|"),
+		PICKAXE(new ResourceName("pickaxe"), "###", " | ", " | "),
+		AXE(new ResourceName("axe"), "##", "#|", " |"),
+		SHOVEL(new ResourceName("shovel"), "#", "|", "|"),
+		HOE(new ResourceName("hoe"), "##", " |", " |"),
+		RESOURCE(new ResourceName("")),
+		BLOCK(new ResourceName("block"), "###", "###", "###");
 
 		public final ResourceName name;
+		public final String[] recipe;
 
-		ItemType(ResourceName name) {
+		ItemType(ResourceName name, String... recipe) {
 			this.name = name;
+			this.recipe = recipe;
 		}
 	}
 }
