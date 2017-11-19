@@ -1,0 +1,18 @@
+item.coinCopper.name=Copper Coin
+item.coinSilver.name=Silver Coin
+item.coinGold.name=Gold Coin
+item.coinBag.name=Coin Pouch
+item.coinBagLockable.name=Reinforced Coin Pouch
+item.ironPadlock.name=Iron Padlock
+item.merchantHat.name=Merchant Hat
+
+tile.clayPot.name=Clay Pot
+
+menu.coinBag=Coin Pouch
+
+enchantment.persistence=Persistence
+enchantment.greed=Greed
+
+tooltip.unlock=Sneak-use to unlock
+tooltip.lock=Sneak-use to lock
+tooltip.locked=§4Locked by %s

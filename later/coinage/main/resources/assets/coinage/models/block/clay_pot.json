@@ -1,0 +1,70 @@
+{
+    "textures": {
+	    "particle": "coinage:blocks/pot",
+		"top": "coinage:blocks/pot_top",
+		"blank": "coinage:blocks/pot_blank"
+    },
+    "elements": [
+        {
+            "name": "Base",
+            "from": [ 2.0, 0.0, 2.0 ], 
+            "to": [ 14.0, 1.0, 14.0 ], 
+            "faces": {
+                "north": { "texture": "#particle", "tintindex": 1 },
+                "east": { "texture": "#particle", "tintindex": 1 },
+                "south": { "texture": "#particle", "tintindex": 1 },
+                "west": { "texture": "#particle", "tintindex": 1 },
+                "down": { "texture": "#particle", "tintindex": 1, "cullface": "down" }
+            }
+        },
+        {
+            "name": "Body",
+            "from": [ 1.0, 1.0, 1.0 ], 
+            "to": [ 15.0, 9.0, 15.0 ], 
+            "faces": {
+                "north": { "texture": "#particle", "tintindex": 1 },
+                "east": { "texture": "#particle", "tintindex": 1 },
+                "south": { "texture": "#particle", "tintindex": 1 },
+                "west": { "texture": "#particle", "tintindex": 1 },
+                "up": { "texture": "#blank", "tintindex": 1 },
+                "down": { "texture": "#particle", "tintindex": 1 }
+            }
+        },
+        {
+            "name": "Neck1",
+            "from": [ 2.0, 9.0, 2.0 ], 
+            "to": [ 14.0, 11.0, 14.0 ], 
+            "faces": {
+                "north": { "texture": "#particle", "tintindex": 1 },
+                "east": { "texture": "#particle", "tintindex": 1 },
+                "south": { "texture": "#particle", "tintindex": 1 },
+                "west": { "texture": "#particle", "tintindex": 1 },
+                "up": { "texture": "#blank", "tintindex": 1 }
+            }
+        },
+        {
+            "name": "Neck2",
+            "from": [ 3.0, 11.0, 3.0 ], 
+            "to": [ 13.0, 14.0, 13.0 ], 
+            "faces": {
+                "north": { "texture": "#particle", "tintindex": 1 },
+                "east": { "texture": "#particle", "tintindex": 1 },
+                "south": { "texture": "#particle", "tintindex": 1 },
+                "west": { "texture": "#particle", "tintindex": 1 }
+            }
+        },
+        {
+            "name": "Brim",
+            "from": [ 1.0, 14.0, 1.0 ], 
+            "to": [ 15.0, 16.0, 15.0 ], 
+            "faces": {
+                "north": { "texture": "#particle", "tintindex": 1 },
+                "east": { "texture": "#particle", "tintindex": 1 },
+                "south": { "texture": "#particle", "tintindex": 1 },
+                "west": { "texture": "#particle", "tintindex": 1 },
+                "up": { "texture": "#top", "tintindex": 1 },
+                "down": { "texture": "#blank", "tintindex": 1 }
+            }
+        }
+    ]
+}

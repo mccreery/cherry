@@ -1,0 +1,16 @@
+[
+{
+  "modid": "coinage",
+  "name": "Coinage",
+  "description": "Adds coins and stuff",
+  "version": "1.0",
+  "mcversion": "1.8",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["NukeDuck"],
+  "credits": "The Forge and FML guys, for making this example",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

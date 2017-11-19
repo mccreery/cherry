@@ -1,0 +1,15 @@
+tile.alarmClock.green.name=Green Digital Clock
+tile.alarmClock.red.name=Red Digital Clock
+tile.alarmClock.blue.name=Blue Digital Clock
+tile.lamp.name=Desk Lamp
+
+tile.peripheral.tower.name=Computer
+tile.peripheral.microphone.name=Desktop Microphone
+tile.peripheral.mouse.name=Wireless Mouse
+tile.peripheral.monitor.name=Computer Monitor
+tile.peripheral.keyboard.name=Wireless Keyboard
+
+tile.recycleBin.name=Recycle Bin
+tile.recycleBin.scrapped=%d items destroyed
+
+itemGroup.functionalDecor=Functional Decor

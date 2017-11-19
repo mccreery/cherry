@@ -1,0 +1,16 @@
+[
+{
+  "modid": "craft_convenience",
+  "name": "Craft Convenience",
+  "description": "Alters and adds crafting recipes to make crafting more efficient and reduces grinding.",
+  "version": "1.0",
+  "mcversion": "1.8",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["NukeDuck"],
+  "credits": "Chameleonred5 on the Minecraft Forums (minecraftforum.net) for the original suggestion.",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
