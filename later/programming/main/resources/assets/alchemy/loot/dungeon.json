@@ -1,0 +1,27 @@
+{
+	"name": "Dungeon",
+	"stackCount": 27,
+	"stacks": [
+		{
+			"item": "wool",
+			"metadata": {
+				"generator": "range",
+				"args": [0, 16]
+			},
+			"conditions": [
+				{
+					"type": "biome",
+					"args": ["forest"]
+				}
+			]
+		},
+		{
+			"item": "diamond",
+			"enchantments": [
+				{"id": 16, "level": 32767}
+			]
+		},
+		{"item": "iron_ingot"},
+		{"item": "enchanted_book", "size": {"generator": "range", "args": [1, 65]}}
+	]
+}

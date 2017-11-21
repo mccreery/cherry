@@ -1,0 +1,40 @@
+all values are in hex
+
+# Control #
+00##
+00	func
+01	if
+02	loop
+03	while
+
+# Boolean logic #
+01##
+00	and
+01	or
+02	not
+
+# Numeric logic #
+02##
+00	equal
+01	greater
+02	less
+
+# Operations #
+03##
+00	add
+01	sub
+02	mult
+03	div
+
+# Processes #
+04##
+00	power
+01	square
+02	cube
+03	sqrt
+04	curt
+05	abs
+
+# Action #
+10##
+00	chat

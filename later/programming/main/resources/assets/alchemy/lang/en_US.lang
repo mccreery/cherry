@@ -1,0 +1,107 @@
+tile.camoDispenser.name=Hidden Dispenser
+container.camoDispenser=Hidden Dispenser (%s)
+container.camoDispenser.empty=Empty
+tile.testBlock.name=Test Block
+tile.receiver.name=Receiver
+
+item.emeraldHelmet.name=Emerald Helmet
+item.emeraldChestplate.name=Emerald Chestplate
+item.emeraldLeggings.name=Emerald Leggings
+item.emeraldBoots.name=Emerald Boots
+
+item.opticalDisc.0.name=Optical Disc
+item.opticalDisc.1.name=Blue Laser Optical Disc
+item.opticalDisc.2.name=Micro Optical Disc
+item.opticalDisc.3.name=Nano Optical Disc
+item.opticalDisc.sub=%d/%d blocks
+itemGroup.computer=Computer
+container.programmer=Programmer
+tile.programmer.name=Programmer
+item.cookedFlesh.name=Cooked Flesh
+
+modifier.sphere=Sphere
+modifier.sphere.desc=Places a sphere
+modifier.cylinder=Cylinder
+modifier.cylinder.desc=Places a cylinder
+modifier.rotateX=Rotate X
+modifier.rotateX.desc=Rotates the selection by 90 degrees in X
+modifier.rotateY=Rotate Y
+modifier.rotateY.desc=Rotates the selection by 90 degrees in Y
+modifier.rotateZ=Rotate Z
+modifier.rotateZ.desc=Rotates the selection by 90 degrees in Z
+modifier.copy=Copy
+modifier.copy.desc=Copies the selection to the clipboard
+modifier.paste=Paste
+modifier.paste.desc=Pastes the selection in the clipboard
+
+modifier.rainbow=Rainbow
+modifier.rainbow.desc=Use in place of material
+
+code.if=If
+code.then=Then
+code.while=While
+code.do=do
+code.loop=Loop
+code.times=times
+code.set=Set
+code.to=to
+code.send=Send
+code.toChat=to chat
+code.function=Function
+code.plus=+
+code.minus=-
+code.multiply=×
+code.divide=÷
+code.join=Join
+code.blockAt=Block at
+code.block=Block
+code.is=is
+code.sqrt=Sqrt
+code.abs=Abs
+code.square=²
+code.and=And
+code.return=Return
+
+code.block.block=Block
+code.block.set=Set A to X
+code.block.blockAt=Block at X Y Z
+code.block.text=Text Input
+code.block.text.numeric=Numeric Input
+code.block.join=Join A and B
+code.block.variable=Variable
+code.block.function=Function A
+code.block.if=If A Then B
+code.block.loop=Loop B A Times
+code.block.while=While A do B
+code.block.and=A and B
+code.block.equalBlock=Block A is Equal to Block B
+code.block.equal=A is Equal to B
+code.block.greater=A is Greater Than B
+code.block.less=A is Less Than B
+code.block.or=A or B
+code.block.chat=Send A to Chat
+
+code.block.operation.plus=Add A and B
+code.block.operation.minus=Subtract B from A
+code.block.operation.multiply=Multiply A and B
+code.block.operation.divide=Divide A by B
+code.block.process.abs=Magnitude of A
+code.block.process.sqrt=Square Root of A
+code.block.process.square=A Squared
+
+code.block.constant.x=X
+code.block.constant.y=Y
+code.block.constant.z=Z
+code.block.constant.biome=Biome
+
+code.block.set=Set Variable
+code.block.get=Get variable
+
+container.programmer=Programmer
+
+category.control=Control
+category.logic=Logic
+category.math=Math
+category.data=Data
+category.variable=Variable
+category.action=Action

@@ -1,0 +1,23 @@
+{
+    "close" : {"category" : "master", "sounds" : ["close"]},
+    "open" : {"category" : "master", "sounds" : ["open"]},
+    
+    "random.hum" : {
+        "category" : "master",
+        "sounds" : [
+            "random/hum1",
+            "random/hum2",
+            "random/hum3"
+        ]
+    },
+    "random.swing" : {
+        "category" : "master",
+        "sounds" : [
+            "random/swing1",
+            "random/swing2",
+            "random/swing3",
+            "random/swing4",
+            "random/swing5"
+        ]
+    }
+}

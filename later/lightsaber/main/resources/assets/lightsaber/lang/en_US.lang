@@ -1,0 +1,141 @@
+lightsaber.red.name=Red
+lightsaber.green.name=Green
+lightsaber.blue.name=Blue
+lightsaber.purple.name=Purple
+lightsaber.yellow.name=Yellow
+lightsaber.black.name=Black
+lightsaber.orange.name=Orange
+lightsaber.white.name=White
+
+lightsaber.hilt=Hilt
+lightsaber.hilt.a=A
+lightsaber.hilt.b=B
+lightsaber.hilt.c=C
+lightsaber.hilt.d=D
+
+lightsaber.double.name=Double
+item.lightsaber.name=Lightsaber
+
+tile.crystal.name=Lightsaber Crystal
+item.crystal.name=Lightsaber Crystal
+item.refillUnit.name=Refilling Unit
+item.forceTome.name=Tome of the Force
+tile.refillUnit.name=Refilling Unit
+
+item.lens.name=Lens
+item.hilt.name=Hilt
+
+item.energyCapsule.name=Energy Capsule
+
+lightsaber.empty.name=(Empty)
+lightsaber.full.name=(Full)
+
+lightsaber.mark.0.name=Mk. I
+lightsaber.mark.1.name=Mk. II
+lightsaber.mark.2.name=Mk. III
+lightsaber.mark.3.name=Mk. IV
+lightsaber.mark.4.name=Mk. V
+
+itemGroup.lightsaber=Lightsaber
+
+ioModes.importRule.prefix=->
+ioModes.importRule=Import Rule
+
+ioModes.exportRule.prefix=<-
+ioModes.exportRule=Export Rule
+
+ioModes.allow=Allow
+ioModes.deny=Deny
+ioModes.allowEmpty=Allow When Empty
+ioModes.allowFull=Allow When Full
+
+key.categories.lightsaber=Lightsaber Mod
+key.openSkills=Open Skills Menu
+key.skill1=Skill 1
+key.skill2=Skill 2
+key.skill3=Skill 3
+key.skill4=Skill 4
+key.skill5=Skill 5
+
+lightsaber.outOf=/
+lightsaber.energySymbol=e
+lightsaber.transferRate=e/s
+lightsaber.lessThan1=<1
+lightsaber.capacityLiteral=Capacity: 
+lightsaber.transferRateLiteral=Transfer Rate: 
+lightsaber.energyLiteral=Energy: 
+
+lightsaber.points.singular=Point
+lightsaber.points.plural=Points
+lightsaber.costs=Costs 
+lightsaber.bought=Bought!
+lightsaber.requiresSkill=Requires: 
+lightsaber.unknown=???
+
+lightsaber.menu.skills=Force Skills
+
+forceSkill.meditation=Meditation
+forceSkill.meditation.desc=Regain force power over time while immobilised.
+forceSkill.focus=Focus
+forceSkill.focus.desc=The base to all powers.
+forceSkill.controlI=Control
+forceSkill.controlI.desc=Building up self-control and being able to manipulate your own mind and body.
+forceSkill.speedI=Force Speed
+forceSkill.speedI.desc=Momentarily speed up and sprint.
+forceSkill.speedII=Force Speed II
+forceSkill.speedII.desc=Become intermediate at channelling energy into speed.
+forceSkill.speedIII=Force Speed III
+forceSkill.speedIII.desc=Become a master of channelling energy through your legs.
+forceSkill.controlII=Control II
+forceSkill.controlII.desc=Advanced control techniques.
+forceSkill.cloak=Force Cloak
+forceSkill.cloak.desc=Become invisible to enemies for a limited time.
+forceSkill.body=Force Body
+forceSkill.body.desc=Sacrifice health for force power in a moment of intense concentration.
+forceSkill.sense=Force Sense
+forceSkill.sense.desc=Aiding your perception of the world around you.
+forceSkill.sight=Force Sight
+forceSkill.sight.desc=Train yourself to be able to see in poor lighting conditions.
+forceSkill.aura=Aura Sense
+forceSkill.aura.desc=Sense the emanations from other living beings around you.
+forceSkill.alter=Alter
+forceSkill.alter.desc=Harness other objects in the world around you.
+forceSkill.telekinesis=Telekinesis
+forceSkill.telekinesis.desc=Learn to move and manipulate objects using telekinetic abilities.
+forceSkill.leap=Force Leap
+forceSkill.leap.desc=Push yourself forward using the objects around you.
+forceSkill.push=Force Push
+forceSkill.push.desc=Repel objects from you.
+forceSkill.pull=Force Pull
+forceSkill.pull.desc=Attract objects towards you.
+forceSkill.blast=Force Blast
+forceSkill.blast.desc=Blast enemies away, causing damage.
+forceSkill.combustion=Combustion
+forceSkill.combustion.desc=Set objects aflame at will.
+
+forceTome.tab.lore=Lore
+forceTome.tab.skills=Skills
+
+tome.lore.1.title=§5Using the Force
+tome.lore.1=Mastering the powers of the Force takes some time. Experience will be gained from using the Force. \n As you learn to harness the world's energy, you can train yourself to perform tasks using it.
+tome.lore.2.title=§5Using Skills
+tome.lore.2=See the 'Skills' tab for available skills. Skills can be bought by left click. \n In the bottom right you can see how many points §o(used as currency)§r you currently have.
+tome.lore.3.title=§5Using Skills (cont.)
+tome.lore.3=To select a skill for use, press a key from 1-5 to bind that slot to the skill you're hovering over. \n To use your Force powers, you §lmust be holding this book§r at all times.
+tome.lore.4.title=§5Activate the Force
+tome.lore.4=Skills you currently have selected can be activated in-game using the bound key ({key}). \n Over time, most skills use up your energy, shown in the HUD.
+tome.lore.5.title=§5Skills Available
+tome.lore.5=§4Meditation \n Hold down to regain force power. \n \n §4Force Speed \n Hold down to 'charge' in one direction. Also has upgrades II and III for increased speed.
+tome.lore.6.title=
+tome.lore.6=§4Force Cloak \n Press to become invisible for a short time. \n \n §4Force Body \n Hold down to regain energy, sacrificing health. Careful, as this can kill you! \n \n §4Force Sight \n Hold down to see in the dark.
+tome.lore.7.title=
+tome.lore.7=§4Aura Sense \n Hold down to see where entities are. Works better the more energy you have. \n \n §4Telekinesis \n Hold down to Pick up and move entities in place.
+tome.lore.8.title=
+tome.lore.8=§4Leap \n Hold down to charge up a high jump. \n \n §4Force Push \n Force entities away from you by holding down. \n \n §4Force Pull \n Pull entities towards you by holding down.
+tome.lore.9.title=
+tome.lore.9=§4Force Blast \n Blast entities away by pressing once. \n \n §4Combustion \n Press once to set the object you're looking at alight, within range.
+tome.lore.10.title=
+tome.lore.10=\n \n \n \n \n \n \c§oMay the force \n \c§obe with you.
+
+death.attack.lightsaber.force=%1$s was killed by the Force
+death.attack.lightsaber.force.player=%1$s was killed by %2$s using the Force

@@ -1,0 +1,44 @@
+Flow Control, Logic, Mathematics, Variable, Action
+
+Flow Control
+	Function
+	If
+	Loop
+	While
+
+Logic
+	And
+	Or
+	Not
+	Equal
+	Not Equal
+	Greater
+	Less
+	Greater or Equal
+	Less or Equal
+
+Mathematics
+	Add
+	Subtract
+	Multiply
+	Divide
+	Square
+	Cube
+	Square Root
+	Cube Root
+	Absolute
+
+Variable
+	Boolean
+	Integer
+	Set Boolean
+	Set Integer
+
+	Block At
+	Constant
+	Join Text
+	Raw Integer
+	Text Box
+
+Action
+	Chat Message
