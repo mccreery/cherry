@@ -113,6 +113,8 @@ public class InventoryUtils {
     @SuppressWarnings("rawtypes")
 	public static boolean addItemStackToInventory(InventoryBasic inv, final ItemStack p_70441_1_)
     {
+    	// TODO rewrite and take care of overflow
+
         if (p_70441_1_ != null && p_70441_1_.stackSize != 0 && p_70441_1_.getItem() != null)
         {
             try

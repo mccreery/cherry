@@ -44,3 +44,7 @@ tile.sapphireOre.name=Sapphire Ore
 tile.rubyBlock.name=Block of Ruby
 tile.topazBlock.name=Block of Topaz
 tile.sapphireBlock.name=Block of Sapphire
+
+gui.held=Held: §5%s
+gui.none=None
+gui.health=Health: §4%s§7/§2%s§7 hearts

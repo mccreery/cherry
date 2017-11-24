@@ -29,7 +29,7 @@ public enum ResourceMaterial {
 			items.put(ItemType.PICKAXE, new ItemEmeraldPickaxe(material));
 			items.put(ItemType.AXE, new ItemEmeraldAxe(material));
 			items.put(ItemType.SHOVEL, new ItemEmeraldShovel(material));
-			items.put(ItemType.HOE, new ItemEmeraldHoe(material));
+			items.put(ItemType.HOE, new ItemHoe(material));
 		}
 	},
 	SAPPHIRE(CherryItems.GEM, "sapphire"), TOPAZ(CherryItems.GEM, "topaz"),
@@ -44,6 +44,10 @@ public enum ResourceMaterial {
 		protected void addItems() {
 			items.put(ItemType.RESOURCE, Item.getItemFromBlock(Blocks.end_stone));
 			items.put(ItemType.SWORD, new ItemEndSword(material));
+			items.put(ItemType.PICKAXE, new ItemEndPickaxe(material));
+			items.put(ItemType.AXE, new ItemEndAxe(material));
+			items.put(ItemType.SHOVEL, new ItemEndShovel(material));
+			items.put(ItemType.HOE, new ItemEndHoe(material));
 		}
 
 		@Override
