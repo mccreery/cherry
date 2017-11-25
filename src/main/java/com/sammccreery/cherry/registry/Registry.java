@@ -44,8 +44,8 @@ public abstract class Registry<T> implements Comparable<Registry<?>> {
 	}
 
 	public static void initAll() {
-		for(Registry<?> register : uninitialized) {
-			register.init();
+		while(!uninitialized.isEmpty()) {
+			uninitialized.remove().init();
 		}
 	}
 
