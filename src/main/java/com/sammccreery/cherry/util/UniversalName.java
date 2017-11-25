@@ -6,7 +6,7 @@ import com.sammccreery.cherry.Cherry;
 
 import net.minecraft.util.ResourceLocation;
 
-public class ResourceName extends ResourceLocation {
+public class UniversalName extends ResourceLocation {
 	private final String[] words;
 
 	private static final Pattern TOKENIZER = Pattern.compile(
@@ -22,24 +22,24 @@ public class ResourceName extends ResourceLocation {
 		}
 	}
 
-	public ResourceName(String name) {
+	public UniversalName(String name) {
 		super(name.contains(":") ? name.substring(0, name.indexOf(':')) : Cherry.MODID,
 			name.contains(":") ? name.substring(name.indexOf(':') + 1) : name);
 		words = tokenize(name);
 	}
-	public ResourceName(String modid, String name) {
+	public UniversalName(String modid, String name) {
 		super(modid, name);
 		words = tokenize(name);
 	}
-	public ResourceName(String[] words) {
+	public UniversalName(String[] words) {
 		this(Cherry.MODID, words);
 	}
-	public ResourceName(String modid, String[] words) {
+	public UniversalName(String modid, String[] words) {
 		super(modid, formatName(words, Format.SNAKE));
 		this.words = words;
 	}
 
-	public ResourceName(ResourceName a, ResourceName b) {
+	public UniversalName(UniversalName a, UniversalName b) {
 		super(a.getResourceDomain(), a.getResourcePath() + b.getResourcePath());
 
 		if(a.getResourceDomain() != b.getResourceDomain()) {
@@ -55,6 +55,36 @@ public class ResourceName extends ResourceLocation {
 		for(j = 0; j < b.words.length; i++, j++) {
 			words[i] = b.words[j];
 		}
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		// This will always match ResourceLocations, regardless of format
+		if(other instanceof UniversalName) {
+			UniversalName name = (UniversalName)other;
+
+			if(getResourceDomain() != name.getResourceDomain() || words.length != name.words.length) {
+				return false;
+			} else {
+				for(int i = 0; i < words.length; i++) {
+					if(!words[i].equalsIgnoreCase(name.words[i])) {
+						return false;
+					}
+				}
+				return true;
+			}
+		} else if(other instanceof ResourceLocation) {
+			ResourceLocation resource = (ResourceLocation)other;
+			return equals(new UniversalName(resource.getResourceDomain(), resource.getResourcePath()));
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public int hashCode() {
+		// This will match ResourceLocation keys only if the resource location is in snake_case
+		return new ResourceLocation(getResourceDomain(), format(false, Format.SNAKE)).hashCode();
 	}
 
 	public String format(boolean qualify, Format format) {
