@@ -23,8 +23,6 @@ public abstract class Registry<T> implements Comparable<Registry<?>> {
 
 	@SuppressWarnings("unchecked")
 	public static final <T> T register(T obj, UniversalName name) {
-		System.out.println(registers.keySet());
-
 		for(Class<?> c = obj.getClass(); c != Object.class; c = c.getSuperclass()) {
 			if(registers.containsKey(c)) {
 				return register((Registry<T>)registers.get(c), obj, name);

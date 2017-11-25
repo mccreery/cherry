@@ -1,6 +1,7 @@
 package com.sammccreery.cherry.registry;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,8 +37,7 @@ import net.minecraft.item.ItemSword;
 public enum ResourceMaterial {
 	RUBY(CherryItems.GEM, MapColor.redColor, "ruby"), EMERALD(CherryItems.GEM, null, "emerald") {
 		@Override
-		protected void addItems() {
-			map.put(ItemType.RESOURCE, Items.emerald);
+		protected void addTools() {
 			map.put(ItemType.SWORD, new ItemEmeraldSword(material));
 			map.put(ItemType.PICKAXE, new ItemEmeraldPickaxe(material));
 			map.put(ItemType.AXE, new ItemEmeraldAxe(material));
@@ -46,36 +46,27 @@ public enum ResourceMaterial {
 		}
 
 		@Override
-		protected void addBlock() {
-			map.put(ItemType.BLOCK, Item.getItemFromBlock(Blocks.emerald_block));
+		protected void addResource() {
+			map.put(ItemType.RESOURCE, Items.emerald);
+			map.put(ItemType.BLOCK, Blocks.emerald_block);
+			map.put(ItemType.ORE, Blocks.emerald_ore);
 		}
 
 		@Override
-		protected boolean shouldGenerateExtras() {
-			return false;
-		}
-
-		@Override
-		protected boolean shouldRegister(ItemType type) {
-			return type != ItemType.RESOURCE && type != ItemType.BLOCK;
+		protected boolean skipResource() {
+			return true;
 		}
 	},
 	SAPPHIRE(CherryItems.GEM, MapColor.blueColor, "sapphire"), TOPAZ(CherryItems.GEM, MapColor.yellowColor, "topaz"),
 	OBSIDIAN(CherryItems.OBSIDIAN, null, "obsidian") {
 		@Override
-		protected void addItems() {
-			super.addItems();
-			map.put(ItemType.RESOURCE, Item.getItemFromBlock(Blocks.obsidian));
-		}
-
-		@Override
-		protected void addBlock() {
-			map.put(ItemType.BLOCK, Item.getItemFromBlock(Blocks.obsidian));
+		protected void addResource() {
+			map.put(ItemType.RESOURCE, Blocks.obsidian);
+			map.put(ItemType.BLOCK, Blocks.obsidian);
 		}
 	}, END(CherryItems.END, null, "end") {
 		@Override
-		protected void addItems() {
-			map.put(ItemType.RESOURCE, Item.getItemFromBlock(Blocks.end_stone));
+		protected void addTools() {
 			map.put(ItemType.SWORD, new ItemEndSword(material));
 			map.put(ItemType.PICKAXE, new ItemEndPickaxe(material));
 			map.put(ItemType.AXE, new ItemEndAxe(material));
@@ -84,22 +75,21 @@ public enum ResourceMaterial {
 		}
 
 		@Override
-		protected void registerRecipes() {
-			GameRegistry.addRecipe(createStack(ItemType.SWORD),
-				" # ", " # ", "@|@", '#', getItem(ItemType.RESOURCE), '|', Items.stick, '@', Items.ender_eye);
-			GameRegistry.addRecipe(createStack(ItemType.PICKAXE),
-				"###", " @ ", " | ", '#', getItem(ItemType.RESOURCE), '|', Items.stick, '@', Items.ender_eye);
-			GameRegistry.addRecipe(createStack(ItemType.AXE),
-				"##", "#@", " |", '#', getItem(ItemType.RESOURCE), '|', Items.stick, '@', Items.ender_eye);
-			GameRegistry.addRecipe(createStack(ItemType.SHOVEL),
-				"#", "@", "|", '#', getItem(ItemType.RESOURCE), '|', Items.stick, '@', Items.ender_eye);
-			GameRegistry.addRecipe(createStack(ItemType.HOE),
-				"##", " @", " |", '#', getItem(ItemType.RESOURCE), '|', Items.stick, '@', Items.ender_eye);
+		protected void addResource() {
+			map.put(ItemType.RESOURCE, Blocks.end_stone);
+			map.put(ItemType.BLOCK, Blocks.end_stone);
 		}
 
 		@Override
-		protected void addBlock() {
-			map.put(ItemType.BLOCK, Item.getItemFromBlock(Blocks.end_stone));
+		protected Object[] getRecipe(ItemType type) {
+			switch(type) {
+				case SWORD:   return new Object[] {" # ", " # ", "@|@", '@', Items.ender_eye};
+				case PICKAXE: return new Object[] {"###", " @ ", " | ", '@', Items.ender_eye};
+				case AXE:     return new Object[] {"##",  "#@",  " |",  '@', Items.ender_eye};
+				case SHOVEL:  return new Object[] {"#",   "@",   "|",   '@', Items.ender_eye};
+				case HOE:     return new Object[] {"##",  " @",  " |",  '@', Items.ender_eye};
+				default:      return super.getRecipe(type);
+			}
 		}
 	};
 
@@ -148,48 +138,36 @@ public enum ResourceMaterial {
 	}
 
 	public void init() {
-		addBlock();
-		addItems();
-		if(shouldGenerateExtras()) addOre();
+		addResource();
+		addTools();
+
 		registerObjects();
 		registerRecipes();
 	}
 
-	/** @return {@code true} if ores and compressed blocks should be generated */
-	protected boolean shouldGenerateExtras() {
-		return map.get(ItemType.RESOURCE) != map.get(ItemType.BLOCK);
-	}
-
-	/** @return {@code true} if the specified type needs registering */
-	protected boolean shouldRegister(ItemType type) {
-		return shouldGenerateExtras() || (type != ItemType.RESOURCE && type != ItemType.BLOCK && type != ItemType.ORE);
-	}
-
-	protected void addBlock() {
-		Block block = new BlockCompressed(color);
-		block.setStepSound(Block.soundTypeMetal);
-		block.setHardness(5.0F);
-		block.setResistance(10.0F);
-
-		map.put(ItemType.BLOCK, block);
-	}
-
-	protected void addOre() {
-		Block ore = new BlockResourceOre(this);
-		ore.setStepSound(Block.soundTypePiston);
-		ore.setHardness(3.0F);
-		ore.setResistance(5.0F);
-
-		map.put(ItemType.ORE, ore);
-	}
-
-	protected void addItems() {
-		map.put(ItemType.RESOURCE, new Item().setCreativeTab(CreativeTabs.tabMaterials));
+	protected void addTools() {
 		map.put(ItemType.SWORD, new ItemSword(material));
 		map.put(ItemType.PICKAXE, new ItemPickaxe(material));
 		map.put(ItemType.AXE, new ItemAxe(material));
 		map.put(ItemType.SHOVEL, new ItemSpade(material));
 		map.put(ItemType.HOE, new ItemHoe(material));
+	}
+
+	protected void addResource() {
+		map.put(ItemType.RESOURCE, new Item().setCreativeTab(CreativeTabs.tabMaterials));
+		map.put(ItemType.BLOCK, new BlockCompressed(color).setStepSound(Block.soundTypeMetal).setHardness(5.0F).setResistance(10.0F));
+		map.put(ItemType.ORE, new BlockResourceOre(this).setStepSound(Block.soundTypePiston).setHardness(3.0F).setResistance(5.0F));
+	}
+
+	/** @return {@code true} if the material's resource doesn't need to be registered */
+	protected boolean skipResource() {
+		return map.get(ItemType.RESOURCE) == map.get(ItemType.BLOCK);
+	}
+
+	/** @return {@code true} if the specified type needs registering */
+	protected boolean shouldRegister(ItemType type) {
+		return !skipResource()
+			|| (type != ItemType.RESOURCE && type != ItemType.BLOCK && type != ItemType.ORE);
 	}
 
 	private void registerObjects() {
@@ -200,45 +178,37 @@ public enum ResourceMaterial {
 		}
 	}
 
-	protected ItemStack createStack(ItemType type) {
-		List<ItemStack> temp = new ArrayList<ItemStack>();
+	protected ItemStack getCraftingOutput(ItemType type) {
+		List<ItemStack> subItems = new ArrayList<ItemStack>();
 		Item item = getItem(type);
-		item.getSubItems(item, item.getCreativeTab(), temp);
+		item.getSubItems(item, item.getCreativeTab(), subItems);
 
-		return !temp.isEmpty() ? temp.get(0) : new ItemStack(item);
+		ItemStack stack = !subItems.isEmpty() ? subItems.get(0) : new ItemStack(item);
+		if(type == ItemType.RESOURCE) stack.stackSize = 9;
+		return stack;
 	}
 
 	protected void registerRecipes() {
+		final Object[] shortcuts = {
+			'#', map.get(ItemType.RESOURCE),
+			'|', Items.stick,
+			'B', map.get(ItemType.BLOCK)
+		};
+
 		for(ItemType type : map.keySet()) {
-			if(type.recipe.length > 0) {
-				Object[] params = new Object[type.recipe.length + 6];
+			Object[] recipe = getRecipe(type);
 
-				int i;
-				for(i = 0; i < type.recipe.length; i++) {
-					params[i] = type.recipe[i];
-				}
-				params[i++] = '#';
-				params[i++] = map.get(ItemType.RESOURCE);
-				params[i++] = '|';
-				params[i++] = Items.stick;
-				params[i++] = 'B';
-				params[i++] = map.get(ItemType.BLOCK);
+			if(recipe != null) {
+				recipe = Arrays.copyOf(recipe, recipe.length + shortcuts.length);
+				System.arraycopy(shortcuts, 0, recipe, recipe.length - shortcuts.length, shortcuts.length);
 
-				GameRegistry.addRecipe(createStack(type), params);
+				GameRegistry.addRecipe(getCraftingOutput(type), recipe);
 			}
-		}
-
-		if(shouldGenerateExtras()) {
-			registerCompressRecipes();
 		}
 	}
 
-	protected void registerCompressRecipes() {
-		GameRegistry.addRecipe(createStack(ItemType.BLOCK), "###", "###", "###", '#', map.get(ItemType.RESOURCE));
-
-		ItemStack resourceStack = createStack(ItemType.RESOURCE);
-		resourceStack.stackSize = 9;
-		GameRegistry.addShapelessRecipe(resourceStack, map.get(ItemType.BLOCK));
+	protected Object[] getRecipe(ItemType type) {
+		return shouldRegister(type) && type.recipe.length != 0 ? type.recipe : null;
 	}
 
 	public enum ItemType {
@@ -247,14 +217,14 @@ public enum ResourceMaterial {
 		AXE(new UniversalName("axe"), "##", "#|", " |"),
 		SHOVEL(new UniversalName("shovel"), "#", "|", "|"),
 		HOE(new UniversalName("hoe"), "##", " |", " |"),
-		RESOURCE(new UniversalName("")),
-		BLOCK(new UniversalName("block")),
+		RESOURCE(new UniversalName(""), "B"),
+		BLOCK(new UniversalName("block"), "###", "###", "###"),
 		ORE(new UniversalName("ore"));
 
 		public final UniversalName name;
-		public final String[] recipe;
+		public final Object[] recipe;
 
-		ItemType(UniversalName name, String... recipe) {
+		ItemType(UniversalName name, Object... recipe) {
 			this.name = name;
 			this.recipe = recipe;
 		}
