@@ -35,7 +35,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 
 public enum ResourceMaterial {
-	RUBY(CherryItems.GEM, MapColor.redColor, "ruby"), EMERALD(CherryItems.GEM, null, "emerald") {
+	RUBY(CherryItems.GEM, MapColor.redColor, 4, "ruby"), EMERALD(CherryItems.GEM, "emerald") {
 		@Override
 		protected void addTools() {
 			map.put(ItemType.SWORD, new ItemEmeraldSword(material));
@@ -53,18 +53,18 @@ public enum ResourceMaterial {
 		}
 
 		@Override
-		protected boolean skipResource() {
+		public boolean skipResource() {
 			return true;
 		}
 	},
-	SAPPHIRE(CherryItems.GEM, MapColor.blueColor, "sapphire"), TOPAZ(CherryItems.GEM, MapColor.yellowColor, "topaz"),
-	OBSIDIAN(CherryItems.OBSIDIAN, null, "obsidian") {
+	SAPPHIRE(CherryItems.GEM, MapColor.blueColor, 6, "sapphire"), TOPAZ(CherryItems.GEM, MapColor.yellowColor, 8, "topaz"),
+	OBSIDIAN(CherryItems.OBSIDIAN, "obsidian") {
 		@Override
 		protected void addResource() {
 			map.put(ItemType.RESOURCE, Blocks.obsidian);
 			map.put(ItemType.BLOCK, Blocks.obsidian);
 		}
-	}, END(CherryItems.END, null, "end") {
+	}, END(CherryItems.END, "end") {
 		@Override
 		protected void addTools() {
 			map.put(ItemType.SWORD, new ItemEndSword(material));
@@ -98,6 +98,7 @@ public enum ResourceMaterial {
 	public final UniversalName name;
 	protected final Map<ItemType, Object> map = new HashMap<ItemType, Object>();
 	public final int xpLow, xpHigh;
+	public final int veinSize;
 
 	public Block getBlock(ItemType type) {
 		Object obj = map.get(type);
@@ -124,16 +125,17 @@ public enum ResourceMaterial {
 	}
 
 	ResourceMaterial(ToolMaterial material, String name) {
-		this(material, null, 3, 7, name);
+		this(material, null, 3, 7, 8, name);
 	}
-	ResourceMaterial(ToolMaterial material, MapColor color, String name) {
-		this(material, color, 3, 7, name);
+	ResourceMaterial(ToolMaterial material, MapColor color, int veinSize, String name) {
+		this(material, color, 3, 7, veinSize, name);
 	}
-	ResourceMaterial(ToolMaterial material, MapColor color, int xpLow, int xpHigh, String name) {
+	ResourceMaterial(ToolMaterial material, MapColor color, int xpLow, int xpHigh, int veinSize, String name) {
 		this.material = material;
 		this.color = color;
 		this.xpLow = xpLow;
 		this.xpHigh = xpHigh;
+		this.veinSize = veinSize;
 		this.name = new UniversalName(name);
 	}
 
@@ -160,7 +162,7 @@ public enum ResourceMaterial {
 	}
 
 	/** @return {@code true} if the material's resource doesn't need to be registered */
-	protected boolean skipResource() {
+	public boolean skipResource() {
 		return map.get(ItemType.RESOURCE) == map.get(ItemType.BLOCK);
 	}
 
