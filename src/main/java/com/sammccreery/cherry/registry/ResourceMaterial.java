@@ -145,6 +145,10 @@ public enum ResourceMaterial {
 
 		registerObjects();
 		registerRecipes();
+
+		if(!skipResource()) {
+			GameRegistry.addSmelting(getBlock(ItemType.ORE), new ItemStack(getItem(ItemType.RESOURCE)), 0.8F);
+		}
 	}
 
 	protected void addTools() {

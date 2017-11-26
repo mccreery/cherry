@@ -37,7 +37,8 @@ public class ItemEndHoe extends ItemHoe {
 					replanted = true;
 				}
 
-				InventoryUtils.addItemStackToInventory(player.getInventoryEnderChest(), drop);
+				// TODO handle overflow
+				InventoryUtils.storeStack(player.getInventoryEnderChest(), drop);
 			}
 			stack.damageItem(1, player);
 			return true;

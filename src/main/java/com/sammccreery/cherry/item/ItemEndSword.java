@@ -24,6 +24,11 @@ public class ItemEndSword extends ItemSword {
 		return release(stack, world, player, x, y, z);
 	}
 
+	@Override
+	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase target) {
+		return capture(stack, player.worldObj, player, target);
+	}
+
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List tooltip, boolean par4) {
@@ -99,7 +104,7 @@ public class ItemEndSword extends ItemSword {
 			} else {
 				capture.setLocationAndAngles(x + 0.5F, y, z + 0.5F, 0, 0);
 			}
-			Util.teleportEffect(capture.worldObj, x, y + 1, z, 30, 1.0F);
+			Util.teleportEffect(world, x, y + 1, z, 30, 1.0F);
 
 			//if(world.canPlaceEntityOnSide(world.getBlock(x, y, z), x, y, z, world.getBlock(x, y, z).getCollisionBoundingBoxFromPool(world, x, y, z) == null, side, player, itemstack)) {
 				world.spawnEntityInWorld(capture);

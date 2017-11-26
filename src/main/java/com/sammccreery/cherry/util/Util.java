@@ -11,7 +11,8 @@ public class Util {
 	public static final Random RANDOM = new Random();
 
 	public static void teleportEffect(World world, double x, double y, double z, int count, float volume) {
-		if(!world.isRemote) return;
+		//if(!world.isRemote) return;
+		System.out.println(world.isRemote ? "CLIENT" : "SERVER");
 
 		for(int i = 0; i < count; i++) {
 			double dx = (RANDOM.nextDouble() - 0.5D) * 0.5D;
@@ -26,7 +27,7 @@ public class Util {
 				RANDOM.nextDouble() - 0.5D, RANDOM.nextDouble() - 0.5D, RANDOM.nextDouble() - 0.5D);
 		}
 
-		world.playSoundEffect(x, y + 0.5D, z, "mob.endermen.portal", 1.0F, 1.0F);
+		world.playSound(x, y + 0.5D, z, "mob.endermen.portal", 1.0F, 1.0F, true);
 	}
 
 	/** @return A string representation of {@code x} with the given number of {@code places} */

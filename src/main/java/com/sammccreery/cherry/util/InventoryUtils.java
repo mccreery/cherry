@@ -1,190 +1,111 @@
 package com.sammccreery.cherry.util;
 
-import java.util.concurrent.Callable;
-
-import net.minecraft.crash.CrashReport;
-import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.inventory.InventoryBasic;
-import net.minecraft.item.Item;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ReportedException;
 
 public class InventoryUtils {
-    /**
-     * This function stores as many items of an ItemStack as possible in a matching slot and returns the quantity of
-     * left over items.
-     */
-    public static int storePartialItemStack(InventoryBasic inv, ItemStack p_70452_1_)
-    {
-        Item item = p_70452_1_.getItem();
-        int i = p_70452_1_.stackSize;
-        int j;
+	/** Attempts to add the whole stack to the inventory
+	 * @return The remaining stack size */
+	public static int storeStack(IInventory inv, ItemStack stack) {
+		if(isEmpty(stack)) return 0;
 
-        if (p_70452_1_.getMaxStackSize() == 1)
-        {
-            j = getFirstEmptyStack(inv);
+		// Stack until the inventory runs out of space
+		while(stack.stackSize > fillSlot(inv, stack));
+		return stack.stackSize;
+	}
 
-            if (j < 0)
-            {
-                return i;
-            }
-            else
-            {
-                if (inv.getStackInSlot(j) == null)
-                {
-                    inv.setInventorySlotContents(j, ItemStack.copyItemStack(p_70452_1_));
-                }
+	/** Store as many items as possible in a single slot
+	 * @return The remaining stack size */
+	private static int fillSlot(IInventory inv, ItemStack stack) {
+		if(isEmpty(stack)) return 0;
 
-                return 0;
-            }
-        }
-        else
-        {
-            j = storeItemStack(inv, p_70452_1_);
+		if(stack.isStackable()) {
+			int slot = firstStackableSlot(inv, stack);
+			ItemStack dest;
 
-            if (j < 0)
-            {
-                j = getFirstEmptyStack(inv);
-            }
+			if(slot == -1) {
+				slot = firstEmptySlot(inv);
+				if(slot == -1) return stack.stackSize;
 
-            if (j < 0)
-            {
-                return i;
-            }
-            else
-            {
-                if (inv.getStackInSlot(j) == null)
-                {
-                	inv.setInventorySlotContents(j, new ItemStack(item, 0, p_70452_1_.getItemDamage()));
+				// Place empty stack in slot
+				dest = ItemStack.copyItemStack(stack);
+				dest.stackSize = 0;
+				inv.setInventorySlotContents(slot, dest);
+			} else {
+				// Use existing stack
+				dest = inv.getStackInSlot(slot);
+			}
 
-                    if (p_70452_1_.hasTagCompound())
-                    {
-                    	inv.getStackInSlot(j).setTagCompound((NBTTagCompound)p_70452_1_.getTagCompound().copy());
-                    }
-                }
+			// Decide how much to store
+			int transfer = Math.min(maxSize(inv, dest) - dest.stackSize, stack.stackSize);
 
-                int k = i;
+			stack.stackSize -= transfer;
+			dest.stackSize += transfer;
+		} else {
+			int slot = firstEmptySlot(inv);
 
-                if (i > inv.getStackInSlot(j).getMaxStackSize() - inv.getStackInSlot(j).stackSize)
-                {
-                    k = inv.getStackInSlot(j).getMaxStackSize() - inv.getStackInSlot(j).stackSize;
-                }
+			if(slot != -1) {
+				inv.setInventorySlotContents(slot, ItemStack.copyItemStack(stack));
+				stack.stackSize = 0;
+			}
+		}
+		return stack.stackSize;
+	}
 
-                if (k > inv.getInventoryStackLimit() - inv.getStackInSlot(j).stackSize)
-                {
-                    k = inv.getInventoryStackLimit() - inv.getStackInSlot(j).stackSize;
-                }
+	/*** @return The first slot in {@code inv} whose stack satisfies {@link #isEmpty(ItemStack)} */
+	public static int firstEmptySlot(IInventory inv) {
+		for(int i = 0; i < inv.getSizeInventory(); ++i) {
+			if(isEmpty(inv.getStackInSlot(i))) {
+				return i;
+			}
+		}
+		return -1;
+	}
 
-                if (k == 0)
-                {
-                    return i;
-                }
-                else
-                {
-                    i -= k;
-                    inv.getStackInSlot(j).stackSize += k;
-                    inv.getStackInSlot(j).animationsToGo = 5;
-                    return i;
-                }
-            }
-        }
-    }
-    
-    /**
-     * Returns the first item stack that is empty.
-     */
-    public static int getFirstEmptyStack(InventoryBasic inv)
-    {
-        for (int i = 0; i < inv.getSizeInventory(); ++i)
-        {
-            if (inv.getStackInSlot(i) == null)
-            {
-                return i;
-            }
-        }
+	/** @return The first slot that the given {@link ItemStack} can be stacked into */
+	public static int firstStackableSlot(IInventory inv, ItemStack stack) {
+		for(int i = 0; i < inv.getSizeInventory(); i++) {
+			ItemStack dest = inv.getStackInSlot(i);
 
-        return -1;
-    }
-    
-    /**
-     * Adds the item stack to the inventory, returns false if it is impossible.
-     */
-    @SuppressWarnings("rawtypes")
-	public static boolean addItemStackToInventory(InventoryBasic inv, final ItemStack p_70441_1_)
-    {
-    	// TODO rewrite and take care of overflow
+			if(canStack(stack, dest) && dest.stackSize < maxSize(inv, dest)) {
+				return i;
+			}
+		}
+		return -1;
+	}
 
-        if (p_70441_1_ != null && p_70441_1_.stackSize != 0 && p_70441_1_.getItem() != null)
-        {
-            try
-            {
-                int i;
+	/** @return {@code true} if the effective stack size of {@code stack} is 0
+	 * @see #stackSize(ItemStack) */
+	public static boolean isEmpty(ItemStack stack) {
+		return stackSize(stack) == 0;
+	}
+	/** @return The effective stack size.<br>
+	 * If the stack is null or invalid, the effective size is 0 */
+	public static int stackSize(ItemStack stack) {
+		if(stack == null || stack.getItem() == null || stack.stackSize == 0
+				|| stack.isItemStackDamageable() && stack.getItemDamage() > stack.getMaxDamage()) {
+			return 0;
+		} else {
+			return stack.stackSize;
+		}
+	}
 
-                if (p_70441_1_.isItemDamaged())
-                {
-                    i = getFirstEmptyStack(inv);
+	/** @return The maximum stack size for the given stack in the given inventory */
+	public static int maxSize(IInventory inv, ItemStack stack) {
+		int size = inv != null ? inv.getInventoryStackLimit() : 64;
 
-                    if (i >= 0)
-                    {
-                        inv.setInventorySlotContents(i, ItemStack.copyItemStack(p_70441_1_));
-                        p_70441_1_.stackSize = 0;
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    do
-                    {
-                        i = p_70441_1_.stackSize;
-                        p_70441_1_.stackSize = storePartialItemStack(inv, p_70441_1_);
-                    }
-                    while (p_70441_1_.stackSize > 0 && p_70441_1_.stackSize < i);
+		if(stack != null && stack.getMaxStackSize() < size) {
+			size = stack.getMaxStackSize();
+		}
+		return size;
+	}
 
-                    return p_70441_1_.stackSize < i;
-                }
-            }
-            catch (Throwable throwable)
-            {
-                CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Adding item to inventory");
-                CrashReportCategory crashreportcategory = crashreport.makeCategory("Item being added");
-                crashreportcategory.addCrashSection("Item ID", Integer.valueOf(Item.getIdFromItem(p_70441_1_.getItem())));
-                crashreportcategory.addCrashSection("Item data", Integer.valueOf(p_70441_1_.getItemDamage()));
-                crashreportcategory.addCrashSectionCallable("Item name", new Callable()
-                {
-                    //private static final String __OBFID = "CL_00001710";
-                    public String call()
-                    {
-                        return p_70441_1_.getDisplayName();
-                    }
-                });
-                throw new ReportedException(crashreport);
-            }
-        }
-        else
-        {
-            return false;
-        }
-    }
-    
-    /**
-     * stores an itemstack in the users inventory
-     */
-    private static int storeItemStack(InventoryBasic inv, ItemStack p_70432_1_)
-    {
-        for (int i = 0; i < inv.getSizeInventory(); ++i)
-        {
-            if (inv.getStackInSlot(i) != null && inv.getStackInSlot(i).getItem() == p_70432_1_.getItem() && inv.getStackInSlot(i).isStackable() && inv.getStackInSlot(i).stackSize < inv.getStackInSlot(i).getMaxStackSize() && inv.getStackInSlot(i).stackSize < inv.getInventoryStackLimit() && (!inv.getStackInSlot(i).getHasSubtypes() || inv.getStackInSlot(i).getItemDamage() == p_70432_1_.getItemDamage()) && ItemStack.areItemStackTagsEqual(inv.getStackInSlot(i), p_70432_1_))
-            {
-                return i;
-            }
-        }
-
-        return -1;
-    }
-
+	/** @return {@code true} if the two {@link ItemStack}s are compatible to be stacked */
+	public static boolean canStack(ItemStack src, ItemStack dest) {
+		return src != null && dest != null
+			&& src.getItem() == dest.getItem()
+			&& dest.isStackable()
+			&& (!dest.getHasSubtypes() || src.getItemDamage() == dest.getItemDamage())
+			&& ItemStack.areItemStackTagsEqual(src, dest);
+	}
 }
