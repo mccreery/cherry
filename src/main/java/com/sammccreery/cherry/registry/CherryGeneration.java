@@ -1,6 +1,7 @@
 package com.sammccreery.cherry.registry;
 
 import com.sammccreery.cherry.generation.WorldGenOres;
+import com.sammccreery.cherry.generation.WorldGenSponge;
 import com.sammccreery.cherry.util.UniversalName;
 
 import cpw.mods.fml.common.IWorldGenerator;
@@ -16,5 +17,6 @@ public class CherryGeneration extends Registry<IWorldGenerator> {
 	@Override
 	public void init() {
 		registerLocal(new WorldGenOres());
+		registerLocal(new WorldGenSponge());
 	}
 }
