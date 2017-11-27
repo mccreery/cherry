@@ -15,6 +15,8 @@ import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 
 public class Events extends Registry<Object> {
@@ -33,6 +35,20 @@ public class Events extends Registry<Object> {
 				InventoryUtils.storeStack(enderChest, stack);
 			}
 			Util.teleportEffect(e.world, e.x + 0.5D, e.y + 0.5D, e.z + 0.5D, 10, 0.3F);
+		}
+	}
+
+	@SubscribeEvent
+	public void onPlayerInteract(PlayerInteractEvent e) {
+		// Empty cauldron using sponge
+		if(!e.world.isRemote && e.action == Action.RIGHT_CLICK_BLOCK
+				&& !Util.isUseForced(e.entityPlayer, e.world, e.x, e.y, e.z)
+				&& e.entityPlayer.getHeldItem() != null
+				&& e.entityPlayer.getHeldItem().getItem() == Item.getItemFromBlock(Blocks.sponge)
+				&& e.world.getBlock(e.x, e.y, e.z) == Blocks.cauldron
+				&& e.world.getBlockMetadata(e.x, e.y, e.z) != 0) {
+			e.world.setBlockMetadataWithNotify(e.x, e.y, e.z, 0, 2);
+			e.setCanceled(true);
 		}
 	}
 

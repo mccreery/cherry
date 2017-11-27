@@ -29,6 +29,13 @@ minecraft {
 
 jar.archiveName = archivesBaseName + "-" + project.version + "-" + project.minecraft.version + ".jar"
 
+jar {
+	manifest {
+		attribute "FMLCorePlugin": "com.sammccreery.cherry.CherryPlugin"
+		attribute "FMLCorePluginContainsMod": "true"
+	}
+}
+
 processResources {
 	inputs.property "version", project.version
 	inputs.property "mcversion", project.minecraft.version
