@@ -21,7 +21,7 @@ public final class CherryItems extends Registry<Item> {
 		for(ResourceMaterial material : ResourceMaterial.values()) {
 			material.init();
 		}
-		registerLocal(heart, new UniversalName(new String[] {"heart"}));
+		registerLocal(heart, new UniversalName("heart"));
 	}
 
 	@Override

@@ -29,6 +29,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
@@ -218,19 +219,21 @@ public enum ResourceMaterial {
 	}
 
 	public enum ItemType {
-		SWORD(new UniversalName("sword"), "#", "#", "|"),
-		PICKAXE(new UniversalName("pickaxe"), "###", " | ", " | "),
-		AXE(new UniversalName("axe"), "##", "#|", " |"),
-		SHOVEL(new UniversalName("shovel"), "#", "|", "|"),
-		HOE(new UniversalName("hoe"), "##", " |", " |"),
-		RESOURCE(new UniversalName(""), "B"),
-		BLOCK(new UniversalName("block"), "###", "###", "###"),
-		ORE(new UniversalName("ore"));
+		SWORD(ItemSword.class, new UniversalName("sword"), "#", "#", "|"),
+		PICKAXE(ItemPickaxe.class, new UniversalName("pickaxe"), "###", " | ", " | "),
+		AXE(ItemAxe.class, new UniversalName("axe"), "##", "#|", " |"),
+		SHOVEL(ItemSpade.class, new UniversalName("shovel"), "#", "|", "|"),
+		HOE(ItemHoe.class, new UniversalName("hoe"), "##", " |", " |"),
+		RESOURCE(Item.class, new UniversalName(""), "B"),
+		BLOCK(ItemBlock.class, new UniversalName("block"), "###", "###", "###"),
+		ORE(ItemBlock.class, new UniversalName("ore"));
 
+		public final Class<? extends Item> base;
 		public final UniversalName name;
 		public final Object[] recipe;
 
-		ItemType(UniversalName name, Object... recipe) {
+		ItemType(Class<? extends Item> base, UniversalName name, Object... recipe) {
+			this.base = base;
 			this.name = name;
 			this.recipe = recipe;
 		}
