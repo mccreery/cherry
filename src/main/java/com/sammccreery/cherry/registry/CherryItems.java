@@ -14,11 +14,14 @@ public final class CherryItems extends Registry<Item> {
 		OBSIDIAN = EnumHelper.addToolMaterial("obsidian", 3, 4000, 3.5F, 2.0F, 5),
 		END      = EnumHelper.addToolMaterial("end", 3, 1000, 8.0F, 3.0F, 20);
 
+	public static final Item heart = new Item();
+
 	@Override
 	public void init() {
 		for(ResourceMaterial material : ResourceMaterial.values()) {
 			material.init();
 		}
+		registerLocal(heart, new UniversalName(new String[] {"heart"}));
 	}
 
 	@Override
