@@ -3,6 +3,7 @@ package com.sammccreery.cherry.client;
 import org.lwjgl.opengl.GL11;
 
 import com.sammccreery.cherry.Cherry;
+import com.sammccreery.cherry.Config;
 import com.sammccreery.cherry.registry.CherryBlocks;
 import com.sammccreery.cherry.util.Names;
 import com.sammccreery.cherry.util.UniversalName.Format;
@@ -37,7 +38,7 @@ public class LanternRenderer extends TileEntitySpecialRenderer {
 		GL11.glTranslated(x + 0.5, y + 1.5, z + 0.5);
 		GL11.glRotatef(90 * (metadata % 4), 0, 1, 0);
 
-		if(/*HeartCrystal.config.getOldModel()*/false) { // TODO config
+		if(Config.getOldModel()) {
 			GL11.glPushMatrix();
 			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);

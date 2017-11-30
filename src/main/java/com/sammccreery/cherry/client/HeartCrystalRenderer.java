@@ -3,6 +3,7 @@ package com.sammccreery.cherry.client;
 import org.lwjgl.opengl.GL11;
 
 import com.sammccreery.cherry.Cherry;
+import com.sammccreery.cherry.Config;
 import com.sammccreery.cherry.block.TileEntityHeartCrystal;
 import com.sammccreery.cherry.registry.CherryBlocks;
 import com.sammccreery.cherry.util.Names;
@@ -34,7 +35,7 @@ public class HeartCrystalRenderer extends TileEntitySpecialRenderer {
 		TileEntityHeartCrystal te = (TileEntityHeartCrystal) tileentity;
 
 		GL11.glPushMatrix(); {
-			if(/*HeartCrystal.config.getOldModel()*/false) {
+			if(Config.getOldModel()) {
 				GL11.glEnable(GL11.GL_BLEND);
 				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 

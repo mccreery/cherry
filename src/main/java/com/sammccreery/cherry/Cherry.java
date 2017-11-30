@@ -15,6 +15,7 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipe;
@@ -25,6 +26,11 @@ public class Cherry {
 
 	@SidedProxy(clientSide="com.sammccreery.cherry.net.ClientProxy", serverSide="com.sammccreery.cherry.net.CommonProxy")
 	public static CherryProxy proxy;
+
+	@EventHandler
+	public void preInit(FMLPreInitializationEvent e) {
+		new Config(e.getSuggestedConfigurationFile()).load();
+	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent e) {

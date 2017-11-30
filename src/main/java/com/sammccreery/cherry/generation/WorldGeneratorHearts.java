@@ -2,6 +2,7 @@ package com.sammccreery.cherry.generation;
 
 import java.util.Random;
 
+import com.sammccreery.cherry.Config;
 import com.sammccreery.cherry.registry.CherryBlocks;
 
 import cpw.mods.fml.common.IWorldGenerator;
@@ -18,9 +19,9 @@ public class WorldGeneratorHearts implements IWorldGenerator {
 	}
 
 	private void generateSurface(World world, Random random, int chunkX, int chunkZ) {
-		for(int i = 0; i < /*HeartCrystal.config.getGenCount()*/5; i++) { // TODO config
+		for(int i = 0; i < Config.getGenCount(); i++) {
 			int x = chunkX + random.nextInt(16);
-			int y = random.nextInt(16/*HeartCrystal.config.getGenHeight() TODO*/);
+			int y = random.nextInt(Config.getGenHeight());
 			int z = chunkZ + random.nextInt(16);
 
 			if(!world.getBlock(x, y, z).isReplaceable(world, x, y, z)) continue;

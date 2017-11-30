@@ -4,6 +4,7 @@ import static com.sammccreery.cherry.util.Util.RANDOM;
 
 import java.util.UUID;
 
+import com.sammccreery.cherry.Config;
 import com.sammccreery.cherry.item.ItemEndAxe;
 import com.sammccreery.cherry.item.ItemEndPickaxe;
 import com.sammccreery.cherry.item.ItemEndShovel;
@@ -120,7 +121,7 @@ public class Events extends Registry<Object> {
 			AttributeModifier boost = getBoost(player);
 
 			if(boost != null) {
-				float keptRate = 0.0f;//HeartCrystal.config.getKeptRate(); TODO config
+				float keptRate = Config.getKeptRate();
 				double totalKept = 0.0;
 				if(player.worldObj.getGameRules().getGameRuleBooleanValue("keepInventory")) {
 					totalKept = boost.getAmount();

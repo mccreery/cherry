@@ -1,5 +1,6 @@
 package com.sammccreery.cherry.item;
 
+import com.sammccreery.cherry.Config;
 import com.sammccreery.cherry.event.Events;
 
 import net.minecraft.block.Block;
@@ -30,7 +31,7 @@ public class ItemHeartCrystal extends ItemBlock {
 
 	public boolean hasSpace(EntityPlayer player) {
 		AttributeModifier modifier = Events.getBoost(player);
-		return modifier == null || modifier.getAmount() < 10; // TODO switch to getMaxHearts config
+		return modifier == null || modifier.getAmount() < Config.getMaxHearts();
 	}
 
 	@Override
