@@ -7,7 +7,7 @@ import com.sammccreery.cherry.item.ItemEndPickaxe;
 import com.sammccreery.cherry.item.ItemEndShovel;
 import com.sammccreery.cherry.registry.CherryItems;
 import com.sammccreery.cherry.registry.Registry;
-import com.sammccreery.cherry.util.InventoryUtils;
+import com.sammccreery.cherry.util.StackUtils;
 import com.sammccreery.cherry.util.UniversalName;
 import com.sammccreery.cherry.util.Util;
 
@@ -37,7 +37,7 @@ public class Events extends Registry<Object> {
 			InventoryBasic enderChest = e.harvester.getInventoryEnderChest();
 
 			for(ItemStack stack : e.drops) {
-				InventoryUtils.storeStack(enderChest, stack);
+				StackUtils.storeStack(enderChest, stack);
 			}
 			Util.teleportEffect(e.world, e.x + 0.5D, e.y + 0.5D, e.z + 0.5D, 10, 0.3F);
 		}
@@ -81,7 +81,7 @@ public class Events extends Registry<Object> {
 	}
 
 	private static boolean isEndTool(ItemStack stack) {
-		if(InventoryUtils.isEmpty(stack)) return false;
+		if(StackUtils.isEmpty(stack)) return false;
 
 		Item item = stack.getItem();
 		return item instanceof ItemEndPickaxe

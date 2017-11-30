@@ -18,6 +18,7 @@ import com.sammccreery.cherry.item.ItemEndPickaxe;
 import com.sammccreery.cherry.item.ItemEndShovel;
 import com.sammccreery.cherry.item.ItemEndSword;
 import com.sammccreery.cherry.item.ItemPickaxe;
+import com.sammccreery.cherry.util.ContainerDummy;
 import com.sammccreery.cherry.util.UniversalName;
 
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -27,6 +28,7 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemBlock;
@@ -219,23 +221,72 @@ public enum ResourceMaterial {
 	}
 
 	public enum ItemType {
-		SWORD(ItemSword.class, new UniversalName("sword"), "#", "#", "|"),
-		PICKAXE(ItemPickaxe.class, new UniversalName("pickaxe"), "###", " | ", " | "),
-		AXE(ItemAxe.class, new UniversalName("axe"), "##", "#|", " |"),
-		SHOVEL(ItemSpade.class, new UniversalName("shovel"), "#", "|", "|"),
-		HOE(ItemHoe.class, new UniversalName("hoe"), "##", " |", " |"),
-		RESOURCE(Item.class, new UniversalName(""), "B"),
-		BLOCK(ItemBlock.class, new UniversalName("block"), "###", "###", "###"),
-		ORE(ItemBlock.class, new UniversalName("ore"));
+		SWORD(ItemSword.class, new UniversalName("sword"), true, "#", "#", "|"),
+		PICKAXE(net.minecraft.item.ItemPickaxe.class, new UniversalName("pickaxe"), true, "###", " | ", " | "),
+		AXE(net.minecraft.item.ItemAxe.class, new UniversalName("axe"), true, "##", "#|", " |"),
+		SHOVEL(ItemSpade.class, new UniversalName("shovel"), true, "#", "|", "|"),
+		HOE(ItemHoe.class, new UniversalName("hoe"), true, "##", " |", " |"),
+		RESOURCE(Item.class, new UniversalName(""), false, "B"),
+		BLOCK(ItemBlock.class, new UniversalName("block"), false, "###", "###", "###"),
+		ORE(ItemBlock.class, new UniversalName("ore"), false);
 
 		public final Class<? extends Item> base;
 		public final UniversalName name;
+		public final boolean isTool;
 		public final Object[] recipe;
 
-		ItemType(Class<? extends Item> base, UniversalName name, Object... recipe) {
+		/** The slot index of the first stick in the recipe. All other sticks will be ignored when upgrading tools */
+		public final int firstStick;
+
+		private static ItemType[] tools;
+		static {
+			List<ItemType> tools = new ArrayList<ItemType>(values().length);
+
+			for(ItemType type : values()) {
+				if(type.isTool) tools.add(type);
+			}
+			ItemType.tools = tools.toArray(new ItemType[tools.size()]);
+		}
+
+		public static ItemType[] tools() {
+			return tools;
+		}
+
+		public InventoryCrafting getTemplate(ItemStack resource) {
+			InventoryCrafting inv = new InventoryCrafting(new ContainerDummy(), 3, 3);
+			final ItemStack stick = new ItemStack(Items.stick);
+
+			int height = recipe.length;
+			int width = ((String)recipe[0]).length();
+
+			for(int y = 0; y < height; y++) {
+				for(int x = 0; x < width; x++) {
+					int i = y * 3 + x;
+					char c = ((String)recipe[y]).charAt(x);
+
+					if(c == '#') inv.setInventorySlotContents(i, resource);
+					else if(c == '|') inv.setInventorySlotContents(i, stick);
+				}
+			}
+			return inv;
+		}
+
+		ItemType(Class<? extends Item> base, UniversalName name, boolean isTool, Object... recipe) {
 			this.base = base;
 			this.name = name;
+			this.isTool = isTool;
 			this.recipe = recipe;
+
+			int slot = -1;
+			for(int y = 0; y < recipe.length; y++) {
+				int x = ((String)recipe[y]).indexOf('|');
+
+				if(x != -1) {
+					slot = y*3 + x;
+					break;
+				}
+			}
+			this.firstStick = slot;
 		}
 	}
 }

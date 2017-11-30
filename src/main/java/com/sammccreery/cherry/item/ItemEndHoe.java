@@ -1,6 +1,6 @@
 package com.sammccreery.cherry.item;
 
-import com.sammccreery.cherry.util.InventoryUtils;
+import com.sammccreery.cherry.util.StackUtils;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.IGrowable;
@@ -38,7 +38,7 @@ public class ItemEndHoe extends ItemHoe {
 				}
 
 				// TODO handle overflow
-				InventoryUtils.storeStack(player.getInventoryEnderChest(), drop);
+				StackUtils.storeStack(player.getInventoryEnderChest(), drop);
 			}
 			stack.damageItem(1, player);
 			return true;

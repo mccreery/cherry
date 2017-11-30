@@ -1,9 +1,12 @@
 package com.sammccreery.cherry.util;
 
+import com.sammccreery.cherry.registry.ResourceMaterial.ItemType;
+
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class InventoryUtils {
+public class StackUtils {
 	/** Attempts to add the whole stack to the inventory
 	 * @return The remaining stack size */
 	public static int storeStack(IInventory inv, ItemStack stack) {
@@ -107,5 +110,16 @@ public class InventoryUtils {
 			&& dest.isStackable()
 			&& (!dest.getHasSubtypes() || src.getItemDamage() == dest.getItemDamage())
 			&& ItemStack.areItemStackTagsEqual(src, dest);
+	}
+
+	/** @return The type of tool this stack represents, or {@code null} if not a tool */
+	public static ItemType getToolType(ItemStack stack) {
+		if(isEmpty(stack)) return null;
+		Item item = stack.getItem();
+
+		for(ItemType type : ItemType.tools()) {
+			if(type.base.isInstance(item)) return type;
+		}
+		return null;
 	}
 }
