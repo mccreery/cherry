@@ -29,7 +29,6 @@ public class Util {
 			world.spawnParticle("portal", x + dx, y, z + dz,
 				RANDOM.nextDouble() - 0.5D, RANDOM.nextDouble() - 0.5D, RANDOM.nextDouble() - 0.5D);
 		}
-
 		world.playSound(x, y + 0.5D, z, "mob.endermen.portal", 1.0F, 1.0F, true);
 	}
 

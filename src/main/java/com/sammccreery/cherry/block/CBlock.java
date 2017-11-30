@@ -1,9 +1,10 @@
 package com.sammccreery.cherry.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
-public class Block extends net.minecraft.block.Block {
-	public Block(Material material) {
+public class CBlock extends Block {
+	public CBlock(Material material) {
 		super(material);
 	}
 }

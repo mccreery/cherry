@@ -13,6 +13,7 @@ import com.sammccreery.cherry.util.UniversalName;
 import cpw.mods.fml.common.event.FMLEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
@@ -31,6 +32,13 @@ public class CherryRecipes extends Registry<IRecipe> {
 	@Override
 	public void init() {
 		registerToolUpgrades();
+
+		GameRegistry.addShapelessRecipe(new ItemStack(CherryItems.heartShard, 3), CherryBlocks.heartCrystal);
+
+		GameRegistry.addRecipe(new ItemStack(CherryBlocks.heartLantern),
+			"GCG", "GHG", "GGG", 'G', Blocks.glass, 'C', Blocks.hardened_clay, 'H', CherryBlocks.heartCrystal);
+		GameRegistry.addRecipe(new ItemStack(CherryBlocks.heartCrystal),
+			"GCG", "GHG", "GGG", 'G', Blocks.glass, 'C', Blocks.stained_hardened_clay, 'H', CherryBlocks.heartCrystal);
 	}
 
 	@Override

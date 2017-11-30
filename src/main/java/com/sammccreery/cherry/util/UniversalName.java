@@ -7,6 +7,8 @@ import com.sammccreery.cherry.Cherry;
 import net.minecraft.util.ResourceLocation;
 
 public class UniversalName extends ResourceLocation {
+	public static final UniversalName EMPTY = new UniversalName(new String[0]);
+
 	private final String[] words;
 
 	private static final Pattern TOKENIZER = Pattern.compile(

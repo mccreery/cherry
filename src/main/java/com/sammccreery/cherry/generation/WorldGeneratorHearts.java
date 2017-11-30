@@ -1,14 +1,14 @@
-package tk.nukeduck.hearts.event;
+package com.sammccreery.cherry.generation;
 
 import java.util.Random;
 
+import com.sammccreery.cherry.registry.CherryBlocks;
+
+import cpw.mods.fml.common.IWorldGenerator;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
-import tk.nukeduck.hearts.HeartCrystal;
-import tk.nukeduck.hearts.registry.HeartsBlocks;
-import cpw.mods.fml.common.IWorldGenerator;
 
 public class WorldGeneratorHearts implements IWorldGenerator {
 	@Override
@@ -18,9 +18,9 @@ public class WorldGeneratorHearts implements IWorldGenerator {
 	}
 
 	private void generateSurface(World world, Random random, int chunkX, int chunkZ) {
-		for(int i = 0; i < HeartCrystal.config.getGenCount(); i++) {
+		for(int i = 0; i < /*HeartCrystal.config.getGenCount()*/5; i++) { // TODO config
 			int x = chunkX + random.nextInt(16);
-			int y = random.nextInt(HeartCrystal.config.getGenHeight());
+			int y = random.nextInt(16/*HeartCrystal.config.getGenHeight() TODO*/);
 			int z = chunkZ + random.nextInt(16);
 
 			if(!world.getBlock(x, y, z).isReplaceable(world, x, y, z)) continue;
@@ -32,7 +32,7 @@ public class WorldGeneratorHearts implements IWorldGenerator {
 			}
 
 			if(ground.getMaterial() == Material.rock) {
-				world.setBlock(x, y, z, HeartsBlocks.crystal);
+				world.setBlock(x, y, z, CherryBlocks.heartCrystal);
 			}
 		}
 	}

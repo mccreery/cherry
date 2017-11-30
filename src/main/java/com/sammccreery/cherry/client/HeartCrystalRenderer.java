@@ -1,4 +1,12 @@
-package tk.nukeduck.hearts.renderer;
+package com.sammccreery.cherry.client;
+
+import org.lwjgl.opengl.GL11;
+
+import com.sammccreery.cherry.Cherry;
+import com.sammccreery.cherry.block.TileEntityHeartCrystal;
+import com.sammccreery.cherry.registry.CherryBlocks;
+import com.sammccreery.cherry.util.Names;
+import com.sammccreery.cherry.util.UniversalName.Format;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -9,19 +17,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
-import org.lwjgl.opengl.GL11;
-
-import tk.nukeduck.hearts.HeartCrystal;
-import tk.nukeduck.hearts.block.TileEntityHeartCrystal;
-import tk.nukeduck.hearts.registry.HeartsBlocks;
-
 public class HeartCrystalRenderer extends TileEntitySpecialRenderer {
 	private EntityItem item;
-	protected static final ResourceLocation oldTexture = new ResourceLocation("hearts", "textures/models/heart_crystal.png");
+	protected static final ResourceLocation oldTexture = new ResourceLocation(Cherry.MODID, "textures/models/" + Names.HEART_CRYSTAL.format(false, Format.SNAKE) + ".png");
 	private ModelHeart model;
 
 	public HeartCrystalRenderer() {
-		this.item = new EntityItem(Minecraft.getMinecraft().theWorld, 0D, 0D, 0D, new ItemStack(HeartsBlocks.crystal));
+		this.item = new EntityItem(Minecraft.getMinecraft().theWorld, 0D, 0D, 0D, new ItemStack(CherryBlocks.heartCrystal));
 		this.item.hoverStart = 0.0F;
 		this.model = new ModelHeart();
 	}
@@ -32,7 +34,7 @@ public class HeartCrystalRenderer extends TileEntitySpecialRenderer {
 		TileEntityHeartCrystal te = (TileEntityHeartCrystal) tileentity;
 
 		GL11.glPushMatrix(); {
-			if(HeartCrystal.config.getOldModel()) {
+			if(/*HeartCrystal.config.getOldModel()*/false) {
 				GL11.glEnable(GL11.GL_BLEND);
 				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 

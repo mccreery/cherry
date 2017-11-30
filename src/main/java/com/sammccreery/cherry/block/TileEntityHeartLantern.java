@@ -1,8 +1,8 @@
-package tk.nukeduck.hearts.block;
+package com.sammccreery.cherry.block;
 
-import tk.nukeduck.hearts.HeartCrystal;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import static com.sammccreery.cherry.util.Util.RANDOM;
 
 public class TileEntityHeartLantern extends TileEntity {
 	float chargeLevel;
@@ -13,7 +13,7 @@ public class TileEntityHeartLantern extends TileEntity {
 			return;
 		}
 
-		if(HeartCrystal.random.nextFloat() < 0.05F) {
+		if(RANDOM.nextFloat() < 0.05F) {
 			this.chargeLevel += 0.05F;
 		}
 	}

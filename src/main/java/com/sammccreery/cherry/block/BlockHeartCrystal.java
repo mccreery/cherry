@@ -1,20 +1,20 @@
-package tk.nukeduck.hearts.block;
+package com.sammccreery.cherry.block;
+
+import static com.sammccreery.cherry.util.Util.RANDOM;
 
 import java.util.Random;
 
-import org.lwjgl.opengl.GL11;
+import com.sammccreery.cherry.net.ClientProxy;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import tk.nukeduck.hearts.HeartCrystal;
-import tk.nukeduck.hearts.network.ClientProxy;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockHeartCrystal extends Block implements ITileEntityProvider {
 	public BlockHeartCrystal() {
@@ -22,29 +22,31 @@ public class BlockHeartCrystal extends Block implements ITileEntityProvider {
 		this.setStepSound(Block.soundTypeGlass);
 		this.setBlockBounds(0.125f, 0.0f, 0.125f, 0.875f, 0.9375f, 0.875f);
 		this.setLightLevel(0.5F);
-	}
-
-	public String getParticle() {
-		return "reddust";
+		setCreativeTab(CreativeTabs.tabMisc);
 	}
 
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World world, int x, int y, int z, Random random) {
-		double xRand = (double) x + random.nextDouble();
-		double yRand = (double) y + random.nextDouble();
-		double zRand = (double) z + random.nextDouble();
-		world.spawnParticle(this.getParticle(), xRand, yRand, zRand,
-			random.nextDouble() * 0.7 + 0.3, 0.0, 0.0);
+		spawnParticles(world, x, y, z, this, 1);
+	}
+
+	public static void spawnParticles(World world, int x, int y, int z, Block block, int n) {
+		double dx = block.getBlockBoundsMaxX() - block.getBlockBoundsMinX();
+		double dy = block.getBlockBoundsMaxY() - block.getBlockBoundsMinY();
+		double dz = block.getBlockBoundsMaxZ() - block.getBlockBoundsMinZ();
+
+		for(int i = 0; i < n; i++) {
+			double px = x + block.getBlockBoundsMinX() + RANDOM.nextDouble() * dx;
+			double py = y + block.getBlockBoundsMinY() + RANDOM.nextDouble() * dy;
+			double pz = z + block.getBlockBoundsMinZ() + RANDOM.nextDouble() * dz;
+
+			world.spawnParticle("reddust", px, py, pz, RANDOM.nextDouble() * 0.7 + 0.3, 0.0, 0.0);
+		}
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World world, int metadata) {
 		return new TileEntityHeartCrystal();
-	}
-
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister icon) {
-		this.blockIcon = icon.registerIcon(HeartCrystal.MODID + ":heart_crystal");
 	}
 
 	public boolean isOpaqueCube() {

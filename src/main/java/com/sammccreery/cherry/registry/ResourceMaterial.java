@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.sammccreery.cherry.item.ItemAxe;
+import com.sammccreery.cherry.item.CItemAxe;
 import com.sammccreery.cherry.item.ItemEmeraldAxe;
 import com.sammccreery.cherry.item.ItemEmeraldPickaxe;
 import com.sammccreery.cherry.item.ItemEmeraldShovel;
@@ -157,7 +157,7 @@ public enum ResourceMaterial {
 	protected void addTools() {
 		map.put(ItemType.SWORD, new ItemSword(material));
 		map.put(ItemType.PICKAXE, new ItemPickaxe(material));
-		map.put(ItemType.AXE, new ItemAxe(material));
+		map.put(ItemType.AXE, new CItemAxe(material));
 		map.put(ItemType.SHOVEL, new ItemSpade(material));
 		map.put(ItemType.HOE, new ItemHoe(material));
 	}
@@ -221,14 +221,14 @@ public enum ResourceMaterial {
 	}
 
 	public enum ItemType {
-		SWORD(ItemSword.class, new UniversalName("sword"), true, "#", "#", "|"),
-		PICKAXE(net.minecraft.item.ItemPickaxe.class, new UniversalName("pickaxe"), true, "###", " | ", " | "),
-		AXE(net.minecraft.item.ItemAxe.class, new UniversalName("axe"), true, "##", "#|", " |"),
-		SHOVEL(ItemSpade.class, new UniversalName("shovel"), true, "#", "|", "|"),
-		HOE(ItemHoe.class, new UniversalName("hoe"), true, "##", " |", " |"),
-		RESOURCE(Item.class, new UniversalName(""), false, "B"),
-		BLOCK(ItemBlock.class, new UniversalName("block"), false, "###", "###", "###"),
-		ORE(ItemBlock.class, new UniversalName("ore"), false);
+		SWORD(ItemSword.class, new UniversalName(new String[] {"sword"}), true, "#", "#", "|"),
+		PICKAXE(net.minecraft.item.ItemPickaxe.class, new UniversalName(new String[] {"pickaxe"}), true, "###", " | ", " | "),
+		AXE(net.minecraft.item.ItemAxe.class, new UniversalName(new String[] {"axe"}), true, "##", "#|", " |"),
+		SHOVEL(ItemSpade.class, new UniversalName(new String[] {"shovel"}), true, "#", "|", "|"),
+		HOE(ItemHoe.class, new UniversalName(new String[] {"hoe"}), true, "##", " |", " |"),
+		RESOURCE(Item.class, UniversalName.EMPTY, false, "B"),
+		BLOCK(ItemBlock.class, new UniversalName(new String[] {"block"}), false, "###", "###", "###"),
+		ORE(ItemBlock.class, new UniversalName(new String[] {"ore"}), false);
 
 		public final Class<? extends Item> base;
 		public final UniversalName name;

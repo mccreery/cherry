@@ -1,4 +1,4 @@
-package tk.nukeduck.hearts.renderer;
+package com.sammccreery.cherry.client;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;

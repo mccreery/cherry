@@ -48,3 +48,9 @@ tile.sapphireBlock.name=Block of Sapphire
 gui.held=Held: §5%s
 gui.none=None
 gui.health=Health: §4%s§7/§2%s§7 hearts
+
+tile.fancyBrick.name=Ornate Bricks
+tile.wideBrick.name=Wide Bricks
+tile.heartCrystal.name=Heart Crystal
+tile.heartLantern.name=Heart Lantern
+item.heartShard.name=Heart Shard

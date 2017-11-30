@@ -1,7 +1,13 @@
-package tk.nukeduck.hearts.renderer;
+package com.sammccreery.cherry.client;
+
+import org.lwjgl.opengl.GL11;
+
+import com.sammccreery.cherry.Cherry;
+import com.sammccreery.cherry.registry.CherryBlocks;
+import com.sammccreery.cherry.util.Names;
+import com.sammccreery.cherry.util.UniversalName.Format;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -10,13 +16,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
-import org.lwjgl.opengl.GL11;
-
-import tk.nukeduck.hearts.HeartCrystal;
-import tk.nukeduck.hearts.registry.HeartsBlocks;
-
 public class LanternRenderer extends TileEntitySpecialRenderer {
-	private ResourceLocation texture = new ResourceLocation(HeartCrystal.MODID, "textures/models/lantern.png");
+	private ResourceLocation texture = new ResourceLocation(Cherry.MODID, "textures/models/" + Names.HEART_LANTERN.format(false, Format.SNAKE) + ".png");
 	private ModelLantern model;
 	private ModelHeart heartModel;
 	private EntityItem item;
@@ -24,7 +25,7 @@ public class LanternRenderer extends TileEntitySpecialRenderer {
 	public LanternRenderer() {
 		this.model = new ModelLantern();
 		this.heartModel = new ModelHeart();
-		this.item = new EntityItem(Minecraft.getMinecraft().theWorld, 0D, 0D, 0D, new ItemStack(HeartsBlocks.crystal));
+		this.item = new EntityItem(Minecraft.getMinecraft().theWorld, 0D, 0D, 0D, new ItemStack(CherryBlocks.heartCrystal));
 		this.item.hoverStart = 0.0F;
 	}
 
@@ -36,7 +37,7 @@ public class LanternRenderer extends TileEntitySpecialRenderer {
 		GL11.glTranslated(x + 0.5, y + 1.5, z + 0.5);
 		GL11.glRotatef(90 * (metadata % 4), 0, 1, 0);
 
-		if(HeartCrystal.config.getOldModel()) {
+		if(/*HeartCrystal.config.getOldModel()*/false) { // TODO config
 			GL11.glPushMatrix();
 			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);

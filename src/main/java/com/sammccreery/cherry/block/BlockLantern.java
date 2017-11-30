@@ -1,11 +1,17 @@
-package tk.nukeduck.hearts.block;
+package com.sammccreery.cherry.block;
+
+import static com.sammccreery.cherry.util.Util.RANDOM;
 
 import java.util.Random;
 
+import com.sammccreery.cherry.net.ClientProxy;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -14,17 +20,13 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import tk.nukeduck.hearts.HeartCrystal;
-import tk.nukeduck.hearts.network.ClientProxy;
-import tk.nukeduck.hearts.registry.HeartsBlocks;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockLantern extends Block implements ITileEntityProvider {
-	public BlockLantern(Material material) {
-		super(material);
-		this.setLightLevel(0.8125F);
-		this.setBlockBounds(0.3125F, 0.0F, 0.3125F, 0.6875F, 0.5F, 0.6875F);
+	public BlockLantern() {
+		super(Material.glass);
+		setLightLevel(0.8125F);
+		setBlockBounds(0.3125F, 0.0F, 0.3125F, 0.6875F, 0.5F, 0.6875F);
+		setCreativeTab(CreativeTabs.tabDecorations);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -34,13 +36,7 @@ public class BlockLantern extends Block implements ITileEntityProvider {
 		TileEntityHeartLantern lantern = (TileEntityHeartLantern) tileEntity;
 		
 		float charge = lantern.chargeLevel;
-		for(int i = 0; i < (int) (HeartCrystal.random.nextFloat() * charge * 4); i++) {
-			double xRand = (double) x + this.getBlockBoundsMinX() + random.nextDouble() * (this.getBlockBoundsMaxX() - this.getBlockBoundsMinX());
-			double yRand = (double) y + this.getBlockBoundsMinX() + random.nextDouble() * (this.getBlockBoundsMaxX() - this.getBlockBoundsMinX());
-			double zRand = (double) z + this.getBlockBoundsMinX() + random.nextDouble() * (this.getBlockBoundsMaxX() - this.getBlockBoundsMinX());
-			world.spawnParticle(HeartsBlocks.crystal.getParticle(), xRand, yRand, zRand,
-				random.nextDouble() * 0.7 + 0.3, 0.0, 0.0);
-		}
+		BlockHeartCrystal.spawnParticles(world, x, y, z, this, (int)(RANDOM.nextFloat() * charge * 4));
 	}
 
 	public static final float CHARGE_TAKEN = 0.1F;
@@ -48,17 +44,20 @@ public class BlockLantern extends Block implements ITileEntityProvider {
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
 		if(!(tileEntity instanceof TileEntityHeartLantern)) return false;
+
 		TileEntityHeartLantern lantern = (TileEntityHeartLantern) tileEntity;
 
 		if(lantern.chargeLevel > CHARGE_TAKEN && player.getHealth() < player.getMaxHealth()) {
 			player.heal(1);
-			lantern.chargeLevel--;
+			--lantern.chargeLevel;
+
 			for(int i = 0; i < 2; i++) {
-				double xRand = (double) x + HeartCrystal.random.nextDouble();
-				double yRand = (double) y + HeartCrystal.random.nextDouble() - 0.5;
-				double zRand = (double) z + HeartCrystal.random.nextDouble();
+				double xRand = x + RANDOM.nextDouble();
+				double yRand = y + RANDOM.nextDouble() - 0.5;
+				double zRand = z + RANDOM.nextDouble();
+
 				world.spawnParticle("heart", xRand, yRand, zRand,
-					HeartCrystal.random.nextDouble() * 0.5, HeartCrystal.random.nextDouble() * 0.5, HeartCrystal.random.nextDouble() * 0.5);
+					RANDOM.nextDouble() * 0.5, RANDOM.nextDouble() * 0.5, RANDOM.nextDouble() * 0.5);
 			}
 			return true;
 		}
@@ -105,11 +104,6 @@ public class BlockLantern extends Block implements ITileEntityProvider {
 			this.dropBlockAsItem(world, x, y, z, 0, 0);
 			world.setBlockToAir(x, y, z);
 		}
-	}
-
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister icon) {
-		this.blockIcon = icon.registerIcon(HeartCrystal.MODID + ":lantern");
 	}
 
 	public boolean isOpaqueCube() {

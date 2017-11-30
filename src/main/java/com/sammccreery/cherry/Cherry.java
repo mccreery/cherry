@@ -1,15 +1,18 @@
 package com.sammccreery.cherry;
 
 import com.sammccreery.cherry.event.Events;
+import com.sammccreery.cherry.net.CherryProxy;
 import com.sammccreery.cherry.registry.CherryBlocks;
 import com.sammccreery.cherry.registry.CherryGeneration;
 import com.sammccreery.cherry.registry.CherryItems;
 import com.sammccreery.cherry.registry.CherryRecipes;
+import com.sammccreery.cherry.registry.CherryTileEntities;
 import com.sammccreery.cherry.registry.Registry;
 
 import cpw.mods.fml.common.IWorldGenerator;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import net.minecraft.block.Block;
@@ -20,6 +23,9 @@ import net.minecraft.item.crafting.IRecipe;
 public class Cherry {
 	public static final String MODID = "cherry";
 
+	@SidedProxy(clientSide="com.sammccreery.cherry.net.ClientProxy", serverSide="com.sammccreery.cherry.net.CommonProxy")
+	public static CherryProxy proxy;
+
 	@EventHandler
 	public void init(FMLInitializationEvent e) {
 		Registry.addRegister(Item.class, new CherryItems());
@@ -27,11 +33,13 @@ public class Cherry {
 		Registry.addRegister(Object.class, new Events());
 		Registry.addRegister(IRecipe.class, new CherryRecipes());
 		Registry.addRegister(IWorldGenerator.class, new CherryGeneration());
+		Registry.addRegister(Class.class, new CherryTileEntities());
 		Registry.initAll(e);
 	}
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent e) {
 		Registry.initAll(e);
+		proxy.init();
 	}
 }
