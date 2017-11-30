@@ -19,9 +19,12 @@ import net.minecraft.world.World;
 public class BlockHeartCrystal extends Block implements ITileEntityProvider {
 	public BlockHeartCrystal() {
 		super(Material.glass);
-		this.setStepSound(Block.soundTypeGlass);
-		this.setBlockBounds(0.125f, 0.0f, 0.125f, 0.875f, 0.9375f, 0.875f);
-		this.setLightLevel(0.5F);
+		setStepSound(Block.soundTypeGlass);
+		setBlockBounds(0.125f, 0.0f, 0.125f, 0.875f, 0.9375f, 0.875f);
+		setHardness(1.5F);
+		setResistance(0.5F);
+		setHarvestLevel("pickaxe", 2);
+		setLightLevel(0.5F);
 		setCreativeTab(CreativeTabs.tabMisc);
 	}
 

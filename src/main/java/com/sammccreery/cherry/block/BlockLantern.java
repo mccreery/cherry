@@ -24,8 +24,12 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class BlockLantern extends Block implements ITileEntityProvider {
 	public BlockLantern() {
 		super(Material.glass);
+		setStepSound(soundTypeGlass);
 		setLightLevel(0.8125F);
 		setBlockBounds(0.3125F, 0.0F, 0.3125F, 0.6875F, 0.5F, 0.6875F);
+		setHardness(0.2F);
+		setResistance(0.2F);
+		setHarvestLevel("pickaxe", 0);
 		setCreativeTab(CreativeTabs.tabDecorations);
 	}
 
