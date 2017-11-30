@@ -16,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public class CherryRecipes extends Registry<IRecipe> {
 	@Override
@@ -41,17 +42,30 @@ public class CherryRecipes extends Registry<IRecipe> {
 		CraftingManager crafting = CraftingManager.getInstance();
 
 		for(IRecipe recipe : (List<IRecipe>)crafting.getRecipeList()) {
-			if(!(recipe instanceof ShapedRecipes)) continue;
+			Object[] recipeItems = null;
+
+			if(recipe instanceof ShapedRecipes) {
+				recipeItems = ((ShapedRecipes)recipe).recipeItems;
+			} else if(recipe instanceof ShapedOreRecipe) {
+				recipeItems = ((ShapedOreRecipe)recipe).getInput();
+			}
+			if(recipeItems == null) continue;
 
 			ItemType type = StackUtils.getToolType(recipe.getRecipeOutput());
 			if(type == null) continue;
 
 			ItemStack resource = null;
 
-			for(ItemStack stack : ((ShapedRecipes)recipe).recipeItems) {
-				if(StackUtils.isEmpty(stack) || stack.getItem() == Items.stick) {
-					continue;
-				} else if(!StackUtils.isEmpty(stack)) {
+			for(Object obj : recipeItems) {
+				ItemStack stack = null;
+
+				if(obj instanceof ArrayList) {
+					stack = ((ArrayList<ItemStack>)obj).get(0);
+				} else if(obj instanceof ItemStack) {
+					stack = (ItemStack)obj;
+				}
+
+				if(!StackUtils.isEmpty(stack) && stack.getItem() != Items.stick) {
 					resource = stack;
 					break;
 				}
