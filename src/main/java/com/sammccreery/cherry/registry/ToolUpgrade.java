@@ -1,5 +1,7 @@
 package com.sammccreery.cherry.registry;
 
+import java.util.List;
+
 import com.sammccreery.cherry.registry.ResourceMaterial.ItemType;
 import com.sammccreery.cherry.util.StackUtils;
 
@@ -7,16 +9,17 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class ToolUpgrade extends ShapedRecipes {
 	private final ItemType type;
-	private final ItemStack resource;
+	private final List<ItemStack> resources;
 
-	public ToolUpgrade(ItemType type, ItemStack resource, ItemStack output) {
+	public ToolUpgrade(ItemType type, List<ItemStack> resources, ItemStack output) {
 		super(((String)type.recipe[0]).length(), type.firstStick / 3 + 1, null, output);
 
 		this.type = type;
-		this.resource = resource;
+		this.resources = resources;
 	}
 
 	@Override
@@ -59,7 +62,13 @@ public class ToolUpgrade extends ShapedRecipes {
 			char c = ((String)type.recipe[y]).charAt(x);
 
 			if(c == '#') {
-				return ItemStack.areItemStacksEqual(stack, resource);
+				for(ItemStack resource : resources) {
+					// Use what Forge uses. No questions.
+					if(OreDictionary.itemMatches(resource, stack, false)) return true;
+				}
+				return false;
+
+				//return ItemStack.areItemStacksEqual(stack, resource);
 			} else if(c == '|' && (y*3 + x) == type.firstStick) {
 				return StackUtils.getToolType(stack) == type;
 			} else {
