@@ -8,4 +8,8 @@ public class Names {
 	public static final UniversalName HEART_CRYSTAL = new UniversalName(new String[] {"heart", "crystal"});
 	public static final UniversalName HEART_LANTERN = new UniversalName(new String[] {"heart", "lantern"});
 	public static final UniversalName HEART_SHARD   = new UniversalName(new String[] {"heart", "shard"});
+
+	public static final UniversalName TOOL_UPGRADES = new UniversalName(new String[] {"tool", "upgrades"});
+	public static final UniversalName SURROUND_CRAFTING = new UniversalName(new String[] {"surround"});
+	public static final UniversalName DYE_CRAFTING = new UniversalName(new String[] {"dye"});
 }

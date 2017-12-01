@@ -20,7 +20,7 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipe;
 
-@Mod(modid=Cherry.MODID, useMetadata=true)
+@Mod(modid=Cherry.MODID, name="Cherry", version="0.1", useMetadata=true)
 public class Cherry {
 	public static final String MODID = "cherry";
 
