@@ -6,8 +6,8 @@ import com.sammccreery.cherry.Cherry;
 
 import net.minecraft.util.ResourceLocation;
 
-public class UniversalName extends ResourceLocation {
-	public static final UniversalName EMPTY = new UniversalName(new String[0]);
+public class Name extends ResourceLocation {
+	public static final Name EMPTY = new Name(new String[0]);
 
 	private final String[] words;
 
@@ -24,46 +24,50 @@ public class UniversalName extends ResourceLocation {
 		}
 	}
 
-	public UniversalName(String name) {
-		super(name.contains(":") ? name.substring(0, name.indexOf(':')) : Cherry.MODID,
+	public Name(String name) {
+		this(name.contains(":") ? name.substring(0, name.indexOf(':')) : Cherry.MODID,
 			name.contains(":") ? name.substring(name.indexOf(':') + 1) : name);
-		words = tokenize(name);
 	}
-	public UniversalName(String modid, String name) {
+	public Name(String modid, String name) {
 		super(modid, name);
 		words = tokenize(name);
 	}
-	public UniversalName(String[] words) {
+
+	public Name(String[] words) {
 		this(Cherry.MODID, words);
 	}
-	public UniversalName(String modid, String[] words) {
+	public Name(String modid, String[] words) {
 		super(modid, formatName(words, Format.SNAKE));
 		this.words = words;
 	}
 
-	public UniversalName(UniversalName a, UniversalName b) {
-		super(a.getResourceDomain(), a.getResourcePath() + b.getResourcePath());
-
+	public static Name join(Name a, Name b) {
 		if(a.getResourceDomain() != b.getResourceDomain()) {
-			throw new IllegalArgumentException(String.format("Differing mod IDs: %s and %s",
-				a.getResourceDomain(), b.getResourceDomain()));
+			throw new IllegalArgumentException(String.format("Differing mod IDs: %s and %s", a.getResourceDomain(), b.getResourceDomain()));
 		}
+		return a.append(b.words);
+	}
 
-		words = new String[a.words.length + b.words.length];
-		int i, j;
-		for(i = 0; i < a.words.length; i++) {
-			words[i] = a.words[i];
-		}
-		for(j = 0; j < b.words.length; i++, j++) {
-			words[i] = b.words[j];
-		}
+	public Name prepend(String... words) {
+		return insert(0, words);
+	}
+	public Name append(String... words) {
+		return insert(this.words.length, words);
+	}
+	public Name insert(int i, String... inserts) {
+		String[] words = new String[this.words.length + inserts.length];
+		System.arraycopy(this.words, 0, words, 0, i);
+		System.arraycopy(inserts, 0, words, i, inserts.length);
+		System.arraycopy(this.words, i, words, i + inserts.length, this.words.length - i);
+
+		return new Name(this.getResourceDomain(), words);
 	}
 
 	@Override
 	public boolean equals(Object other) {
 		// This will always match ResourceLocations, regardless of format
-		if(other instanceof UniversalName) {
-			UniversalName name = (UniversalName)other;
+		if(other instanceof Name) {
+			Name name = (Name)other;
 
 			if(getResourceDomain() != name.getResourceDomain() || words.length != name.words.length) {
 				return false;
@@ -77,7 +81,7 @@ public class UniversalName extends ResourceLocation {
 			}
 		} else if(other instanceof ResourceLocation) {
 			ResourceLocation resource = (ResourceLocation)other;
-			return equals(new UniversalName(resource.getResourceDomain(), resource.getResourcePath()));
+			return equals(new Name(resource.getResourceDomain(), resource.getResourcePath()));
 		} else {
 			return false;
 		}
@@ -86,10 +90,10 @@ public class UniversalName extends ResourceLocation {
 	@Override
 	public int hashCode() {
 		// This will match ResourceLocation keys only if the resource location is in snake_case
-		return new ResourceLocation(getResourceDomain(), format(false, Format.SNAKE)).hashCode();
+		return new ResourceLocation(getResourceDomain(), format(Format.SNAKE, false)).hashCode();
 	}
 
-	public String format(boolean qualify, Format format) {
+	public String format(Format format, boolean qualify) {
 		if(format != null) {
 			StringBuilder builder = new StringBuilder();
 
@@ -111,6 +115,16 @@ public class UniversalName extends ResourceLocation {
 			format.append(builder, i, words[i]);
 		}
 		return builder.toString();
+	}
+
+	@Override
+	public String getResourcePath() {
+		return format(Format.SNAKE, false);
+	}
+
+	@Override
+	public String toString() {
+		return format(Format.SNAKE, true);
 	}
 
 	public enum Format {

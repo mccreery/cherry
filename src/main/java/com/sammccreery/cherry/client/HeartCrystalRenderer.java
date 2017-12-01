@@ -6,8 +6,8 @@ import com.sammccreery.cherry.Cherry;
 import com.sammccreery.cherry.Config;
 import com.sammccreery.cherry.block.TileEntityHeartCrystal;
 import com.sammccreery.cherry.registry.CherryBlocks;
+import com.sammccreery.cherry.util.Name.Format;
 import com.sammccreery.cherry.util.Names;
-import com.sammccreery.cherry.util.UniversalName.Format;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -20,7 +20,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class HeartCrystalRenderer extends TileEntitySpecialRenderer {
 	private EntityItem item;
-	protected static final ResourceLocation oldTexture = new ResourceLocation(Cherry.MODID, "textures/models/" + Names.HEART_CRYSTAL.format(false, Format.SNAKE) + ".png");
+	protected static final ResourceLocation oldTexture = new ResourceLocation(Cherry.MODID, "textures/models/" + Names.HEART_CRYSTAL.format(Format.SNAKE, false) + ".png");
 	private ModelHeart model;
 
 	public HeartCrystalRenderer() {

@@ -1,12 +1,12 @@
-package tk.nukeduck.foodcanister;
+package com.sammccreery.cherry.inventory;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 
-public class SlotFoodCanister extends Slot {
-	public SlotFoodCanister(IInventory par1iInventory, int par2, int par3, int par4) {
+public class SlotFood extends Slot {
+	public SlotFood(IInventory par1iInventory, int par2, int par3, int par4) {
 		super(par1iInventory, par2, par3, par4);
 	}
 	

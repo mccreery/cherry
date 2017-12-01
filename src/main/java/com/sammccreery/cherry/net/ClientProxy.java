@@ -8,7 +8,7 @@ import com.sammccreery.cherry.client.LanternRenderer;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
-public class ClientProxy implements CherryProxy {
+public class ClientProxy extends CommonProxy {
 	public static int renderId;
 
 	@Override

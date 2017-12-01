@@ -19,7 +19,7 @@ import com.sammccreery.cherry.item.ItemEndShovel;
 import com.sammccreery.cherry.item.ItemEndSword;
 import com.sammccreery.cherry.item.ItemPickaxe;
 import com.sammccreery.cherry.util.ContainerDummy;
-import com.sammccreery.cherry.util.UniversalName;
+import com.sammccreery.cherry.util.Name;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
@@ -98,7 +98,7 @@ public enum ResourceMaterial {
 
 	public final ToolMaterial material;
 	public final MapColor color;
-	public final UniversalName name;
+	public final Name name;
 	protected final Map<ItemType, Object> map = new HashMap<ItemType, Object>();
 	public final int xpLow, xpHigh;
 	public final int veinSize;
@@ -139,7 +139,7 @@ public enum ResourceMaterial {
 		this.xpLow = xpLow;
 		this.xpHigh = xpHigh;
 		this.veinSize = veinSize;
-		this.name = new UniversalName(name);
+		this.name = new Name(name);
 	}
 
 	public void init() {
@@ -182,7 +182,7 @@ public enum ResourceMaterial {
 	private void registerObjects() {
 		for(Entry<ItemType, Object> entry : map.entrySet()) {
 			if(shouldRegister(entry.getKey())) {
-				map.put(entry.getKey(), Registry.register(entry.getValue(), new UniversalName(name, entry.getKey().name)));
+				map.put(entry.getKey(), Registry.register(entry.getValue(), Name.join(name, entry.getKey().name)));
 			}
 		}
 	}
@@ -221,17 +221,17 @@ public enum ResourceMaterial {
 	}
 
 	public enum ItemType {
-		SWORD(ItemSword.class, new UniversalName(new String[] {"sword"}), true, "#", "#", "|"),
-		PICKAXE(net.minecraft.item.ItemPickaxe.class, new UniversalName(new String[] {"pickaxe"}), true, "###", " | ", " | "),
-		AXE(net.minecraft.item.ItemAxe.class, new UniversalName(new String[] {"axe"}), true, "##", "#|", " |"),
-		SHOVEL(ItemSpade.class, new UniversalName(new String[] {"shovel"}), true, "#", "|", "|"),
-		HOE(ItemHoe.class, new UniversalName(new String[] {"hoe"}), true, "##", " |", " |"),
-		RESOURCE(Item.class, UniversalName.EMPTY, false, "B"),
-		BLOCK(ItemBlock.class, new UniversalName(new String[] {"block"}), false, "###", "###", "###"),
-		ORE(ItemBlock.class, new UniversalName(new String[] {"ore"}), false);
+		SWORD(ItemSword.class, new Name("sword"), true, "#", "#", "|"),
+		PICKAXE(net.minecraft.item.ItemPickaxe.class, new Name("pickaxe"), true, "###", " | ", " | "),
+		AXE(net.minecraft.item.ItemAxe.class, new Name("axe"), true, "##", "#|", " |"),
+		SHOVEL(ItemSpade.class, new Name("shovel"), true, "#", "|", "|"),
+		HOE(ItemHoe.class, new Name("hoe"), true, "##", " |", " |"),
+		RESOURCE(Item.class, Name.EMPTY, false, "B"),
+		BLOCK(ItemBlock.class, new Name("block"), false, "###", "###", "###"),
+		ORE(ItemBlock.class, new Name("ore"), false);
 
 		public final Class<? extends Item> base;
-		public final UniversalName name;
+		public final Name name;
 		public final boolean isTool;
 		public final Object[] recipe;
 
@@ -271,7 +271,7 @@ public enum ResourceMaterial {
 			return inv;
 		}
 
-		ItemType(Class<? extends Item> base, UniversalName name, boolean isTool, Object... recipe) {
+		ItemType(Class<? extends Item> base, Name name, boolean isTool, Object... recipe) {
 			this.base = base;
 			this.name = name;
 			this.isTool = isTool;

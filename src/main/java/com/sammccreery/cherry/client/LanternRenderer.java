@@ -5,8 +5,8 @@ import org.lwjgl.opengl.GL11;
 import com.sammccreery.cherry.Cherry;
 import com.sammccreery.cherry.Config;
 import com.sammccreery.cherry.registry.CherryBlocks;
+import com.sammccreery.cherry.util.Name.Format;
 import com.sammccreery.cherry.util.Names;
-import com.sammccreery.cherry.util.UniversalName.Format;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -18,7 +18,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
 public class LanternRenderer extends TileEntitySpecialRenderer {
-	private ResourceLocation texture = new ResourceLocation(Cherry.MODID, "textures/models/" + Names.HEART_LANTERN.format(false, Format.SNAKE) + ".png");
+	private ResourceLocation texture = new ResourceLocation(Cherry.MODID, "textures/models/" + Names.HEART_LANTERN.format(Format.SNAKE, false) + ".png");
 	private ModelLantern model;
 	private ModelHeart heartModel;
 	private EntityItem item;

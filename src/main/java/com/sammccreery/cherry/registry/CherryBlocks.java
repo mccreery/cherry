@@ -5,9 +5,9 @@ import com.sammccreery.cherry.block.BlockLantern;
 import com.sammccreery.cherry.block.CBlock;
 import com.sammccreery.cherry.item.ItemHeartCrystal;
 import com.sammccreery.cherry.item.ItemHeartLantern;
+import com.sammccreery.cherry.util.Name;
+import com.sammccreery.cherry.util.Name.Format;
 import com.sammccreery.cherry.util.Names;
-import com.sammccreery.cherry.util.UniversalName;
-import com.sammccreery.cherry.util.UniversalName.Format;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
@@ -16,15 +16,15 @@ import net.minecraft.creativetab.CreativeTabs;
 
 public final class CherryBlocks extends Registry<Block> {
 	@Override
-	public Block registerLocal(Block block, UniversalName name) {
+	public Block registerLocal(Block block, Name name) {
 		applyNames(block, name);
-		GameRegistry.registerBlock(block, name.format(false, Format.SNAKE));
+		GameRegistry.registerBlock(block, name.format(Format.SNAKE, false));
 		return block;
 	}
 
-	public static Block applyNames(Block block, UniversalName name) {
-		block.setBlockName(name.format(false, Format.HEADLESS));
-		block.setBlockTextureName(name.format(true, Format.SNAKE));
+	public static Block applyNames(Block block, Name name) {
+		block.setBlockName(name.format(Format.HEADLESS, false));
+		block.setBlockTextureName(name.format(Format.SNAKE, true));
 		return block;
 	}
 
@@ -35,16 +35,16 @@ public final class CherryBlocks extends Registry<Block> {
 
 	@Override
 	public void init() {
-		wideBrick.setHardness(2.0F).setResistance(10.0F).setStepSound(CBlock.soundTypePiston).setCreativeTab(CreativeTabs.tabBlock);
+		wideBrick.setHardness(2.0F).setResistance(10.0F).setStepSound(Block.soundTypePiston).setCreativeTab(CreativeTabs.tabBlock);
 		registerLocal(wideBrick, Names.WIDE_BRICK);
-		fancyBrick.setHardness(2.0F).setResistance(10.0F).setStepSound(CBlock.soundTypePiston).setCreativeTab(CreativeTabs.tabBlock);
+		fancyBrick.setHardness(2.0F).setResistance(10.0F).setStepSound(Block.soundTypePiston).setCreativeTab(CreativeTabs.tabBlock);
 		registerLocal(fancyBrick, Names.FANCY_BRICK);
 
 		// Special ItemBlocks
 		applyNames(heartLantern, Names.HEART_LANTERN);
-		GameRegistry.registerBlock(heartLantern, ItemHeartLantern.class, Names.HEART_LANTERN.format(false, Format.SNAKE));
+		GameRegistry.registerBlock(heartLantern, ItemHeartLantern.class, Names.HEART_LANTERN.format(Format.SNAKE, false));
 
 		applyNames(heartCrystal, Names.HEART_CRYSTAL);
-		GameRegistry.registerBlock(heartCrystal, ItemHeartCrystal.class, Names.HEART_CRYSTAL.format(false, Format.SNAKE));
+		GameRegistry.registerBlock(heartCrystal, ItemHeartCrystal.class, Names.HEART_CRYSTAL.format(Format.SNAKE, false));
 	}
 }

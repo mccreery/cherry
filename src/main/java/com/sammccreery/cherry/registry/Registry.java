@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-import com.sammccreery.cherry.util.UniversalName;
+import com.sammccreery.cherry.util.Name;
 
 import cpw.mods.fml.common.event.FMLEvent;
 
@@ -22,11 +22,11 @@ public abstract class Registry<T> implements Comparable<Registry<?>> {
 
 	public int getPriority() {return 0;}
 	public T registerLocal(T obj) {return registerLocal(obj, null);}
-	public abstract T registerLocal(T obj, UniversalName name);
+	public abstract T registerLocal(T obj, Name name);
 	public abstract void init();
 
 	@SuppressWarnings("unchecked")
-	public static final <T> T register(T obj, UniversalName name) {
+	public static final <T> T register(T obj, Name name) {
 		for(Class<?> c = obj.getClass(); c != Object.class; c = c.getSuperclass()) {
 			if(registers.containsKey(c)) {
 				return register((Registry<T>)registers.get(c), obj, name);
@@ -41,7 +41,7 @@ public abstract class Registry<T> implements Comparable<Registry<?>> {
 		return null;
 	}
 
-	private static <T> T register(Registry<T> register, T obj, UniversalName name) {
+	private static <T> T register(Registry<T> register, T obj, Name name) {
 		return name == null ? register.registerLocal(obj) : register.registerLocal(obj, name);
 	}
 

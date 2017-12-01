@@ -11,8 +11,8 @@ import com.sammccreery.cherry.item.ItemEndShovel;
 import com.sammccreery.cherry.registry.CherryBlocks;
 import com.sammccreery.cherry.registry.CherryItems;
 import com.sammccreery.cherry.registry.Registry;
+import com.sammccreery.cherry.util.Name;
 import com.sammccreery.cherry.util.StackUtils;
-import com.sammccreery.cherry.util.UniversalName;
 import com.sammccreery.cherry.util.Util;
 
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -191,7 +191,7 @@ public class Events extends Registry<Object> {
 	}
 
 	@Override
-	public Object registerLocal(Object obj, UniversalName name) {
+	public Object registerLocal(Object obj, Name name) {
 		MinecraftForge.EVENT_BUS.register(obj);
 		FMLCommonHandler.instance().bus().register(obj);
 		return obj;

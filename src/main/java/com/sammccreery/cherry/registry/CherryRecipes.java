@@ -8,10 +8,10 @@ import java.util.ListIterator;
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.sammccreery.cherry.registry.ResourceMaterial.ItemType;
+import com.sammccreery.cherry.util.Name;
+import com.sammccreery.cherry.util.Name.Format;
 import com.sammccreery.cherry.util.Names;
 import com.sammccreery.cherry.util.StackUtils;
-import com.sammccreery.cherry.util.UniversalName;
-import com.sammccreery.cherry.util.UniversalName.Format;
 
 import cpw.mods.fml.common.event.FMLEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -34,16 +34,16 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public class CherryRecipes extends Registry<IRecipe> {
 	@Override
-	public IRecipe registerLocal(IRecipe obj, UniversalName name) {
+	public IRecipe registerLocal(IRecipe obj, Name name) {
 		GameRegistry.addRecipe(obj);
 		return obj;
 	}
 
 	@Override
 	public void init() {
-		RecipeSorter.register(Names.TOOL_UPGRADES.format(true, Format.SNAKE), ToolUpgrade.class, Category.SHAPED, "after:minecraft:shapeless");
-		RecipeSorter.register(Names.SURROUND_CRAFTING.format(true, Format.SNAKE), SurroundCrafting.class, Category.SHAPELESS, "after:minecraft:shapeless");
-		RecipeSorter.register(Names.DYE_CRAFTING.format(true, Format.SNAKE), DyeCrafting.class, Category.SHAPELESS, "after:minecraft:shapeless");
+		RecipeSorter.register(Names.TOOL_UPGRADES.format(Format.SNAKE, true), ToolUpgrade.class, Category.SHAPED, "after:minecraft:shapeless");
+		RecipeSorter.register(Names.SURROUND_CRAFTING.format(Format.SNAKE, true), SurroundCrafting.class, Category.SHAPELESS, "after:minecraft:shapeless");
+		RecipeSorter.register(Names.DYE_CRAFTING.format(Format.SNAKE, true), DyeCrafting.class, Category.SHAPELESS, "after:minecraft:shapeless");
 
 		GameRegistry.addShapelessRecipe(new ItemStack(CherryItems.heartShard, 3), CherryBlocks.heartCrystal);
 
