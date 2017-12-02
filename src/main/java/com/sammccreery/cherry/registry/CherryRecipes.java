@@ -17,6 +17,7 @@ import cpw.mods.fml.common.event.FMLEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockSlab;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -77,6 +78,15 @@ public class CherryRecipes extends Registry<IRecipe> {
 		registerLocal(new DyeCrafting(new ItemStack(Blocks.hardened_clay), new ItemStack(Blocks.stained_hardened_clay)));
 		registerLocal(new DyeCrafting(new ItemStack(Blocks.glass), new ItemStack(Blocks.stained_glass)));
 		registerLocal(new DyeCrafting(new ItemStack(Blocks.glass_pane), new ItemStack(Blocks.stained_glass_pane)));
+
+		List<ItemStack> slabs = new ArrayList<ItemStack>();
+		Blocks.stone_slab.getSubBlocks(Item.getItemFromBlock(Blocks.stone_slab), Blocks.stone_slab.getCreativeTabToDisplayOn(), slabs);
+		Blocks.wooden_slab.getSubBlocks(Item.getItemFromBlock(Blocks.wooden_slab), Blocks.wooden_slab.getCreativeTabToDisplayOn(), slabs);
+
+		for(ItemStack slab : slabs) {
+			Block doubleSlab = Block.getBlockFromItem(slab.getItem()) == Blocks.stone_slab ? Blocks.double_stone_slab : Blocks.double_wooden_slab;
+			GameRegistry.addShapelessRecipe(new ItemStack(doubleSlab, 1, slab.getItemDamage()), slab, slab);
+		}
 	}
 
 	@Override
