@@ -55,4 +55,12 @@ tile.heartCrystal.name=Heart Crystal
 tile.heartLantern.name=Heart Lantern
 item.heartShard.name=Heart Shard
 
+tile.snowBrick.name=Snow Bricks
+tile.snowStairs.name=Snow Stairs
+tile.snowBrickStairs.name=Snow Brick Stairs
+tile.snowDoor.name=Snow Door
+tile.icePane.name=Ice Pane
+
+item.snowDoor.name=Snow Door
+
 item.foodCanister.name=Food Canister

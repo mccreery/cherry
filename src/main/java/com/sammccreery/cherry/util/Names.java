@@ -3,7 +3,11 @@ package com.sammccreery.cherry.util;
 public class Names {
 	public static final Name FANCY_BRICK       = new Name("fancy_brick");
 	public static final Name WIDE_BRICK        = new Name("wide_brick");
-
+	public static final Name SNOW_BRICK        = new Name("snow_brick");
+	public static final Name SNOW_STAIRS       = new Name("snow_stairs");
+	public static final Name SNOW_BRICK_STAIRS = new Name("snow_brick_stairs");
+	public static final Name SNOW_DOOR         = new Name("snow_door");
+	public static final Name ICE_PANE          = new Name("ice_pane");
 	public static final Name HEART             = new Name("heart");
 	public static final Name HEART_CRYSTAL     = HEART.append("crystal");
 	public static final Name HEART_LANTERN     = HEART.append("lantern");

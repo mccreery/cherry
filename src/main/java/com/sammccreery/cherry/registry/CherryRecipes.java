@@ -58,7 +58,7 @@ public class CherryRecipes extends Registry<IRecipe> {
 		GameRegistry.addRecipe(new ItemStack(Items.repeater), "R R", "TRT", "SSS", 'R', Items.redstone, 'T', Items.stick, 'S', Blocks.stone);
 		GameRegistry.addRecipe(new ItemStack(Items.carrot_on_a_stick), "  T", " TS", "TCS", 'T', Items.stick, 'S', Items.string, 'C', Items.carrot);
 
-		// Slime blocks aren't in the game yet
+		// TODO Slime blocks aren't in the game yet
 		/*registerLocal(new SurroundCrafting(new ItemStack(Blocks.piston), new ItemStack(Blocks.slime_block), new ItemStack(Blocks.sticky_piston)));
 		registerLocal(new SurroundCrafting(new ItemStack(Items.blaze_powder), new ItemStack(Blocks.slime_block), new ItemStack(Items.magma_cream)));*/
 
@@ -68,7 +68,7 @@ public class CherryRecipes extends Registry<IRecipe> {
 		GameRegistry.addRecipe(new ItemStack(Items.glass_bottle, 3), "G G", " G ", 'G', Blocks.glass_pane);
 		GameRegistry.addRecipe(new ItemStack(Items.glass_bottle, 8), "G G", " G ", 'G', Blocks.glass);
 
-		// Rabbit stew isn't in the game yet
+		// TODO Rabbit stew isn't in the game yet
 		//GameRegistry.addShapelessRecipe(new ItemStack(Items.rabbit_stew), Items.baked_potato, Items.cooked_rabbit, Items.bowl);
 
 		GameRegistry.addShapelessRecipe(new ItemStack(Items.cookie, 6), Items.wheat, new ItemStack(Items.dye, 1, 3));
@@ -86,6 +86,12 @@ public class CherryRecipes extends Registry<IRecipe> {
 			Block doubleSlab = Block.getBlockFromItem(slab.getItem()) == Blocks.stone_slab ? Blocks.double_stone_slab : Blocks.double_wooden_slab;
 			GameRegistry.addShapelessRecipe(new ItemStack(doubleSlab, 1, slab.getItemDamage()), slab, slab);
 		}
+
+		GameRegistry.addRecipe(new ItemStack(CherryBlocks.snowBrick), "##", "##", '#', Blocks.snow);
+		GameRegistry.addRecipe(new ItemStack(CherryBlocks.snowStairs), "#  ", "## ", "###", '#', Blocks.snow);
+		GameRegistry.addRecipe(new ItemStack(CherryBlocks.snowBrickStairs), "#  ", "## ", "###", '#', CherryBlocks.snowBrick);
+		GameRegistry.addRecipe(new ItemStack(CherryBlocks.snowDoor), "#  ", "## ", "###", '#', Blocks.snow);
+		GameRegistry.addRecipe(new ItemStack(CherryBlocks.icePane, 16), "#  ", "## ", "###", '#', Blocks.ice);
 	}
 
 	@Override
