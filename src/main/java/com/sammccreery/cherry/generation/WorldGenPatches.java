@@ -2,7 +2,7 @@ package com.sammccreery.cherry.generation;
 
 import java.util.Random;
 
-import com.sammccreery.cherry.util.Util;
+import com.sammccreery.cherry.util.MathUtil;
 
 import cpw.mods.fml.common.IWorldGenerator;
 import net.minecraft.block.Block;
@@ -28,7 +28,7 @@ public abstract class WorldGenPatches implements IWorldGenerator {
 
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
-		int trials = Math.round(Util.distributeSmooth(frequencyMode, frequencySpread, random.nextFloat()));
+		int trials = Math.round(MathUtil.distributeSmooth(random.nextFloat(), frequencyMode, frequencySpread));
 
 		for(int i = 0; i < trials; i++) {
 			int x = chunkX * 16 + random.nextInt(16);
@@ -42,7 +42,7 @@ public abstract class WorldGenPatches implements IWorldGenerator {
 	}
 
 	protected void placePatch(World world, int x, int y, int z, IChunkProvider chunkGenerator, IChunkProvider chunkProvider, Random random) {
-		int trials = Math.round(Util.distributeSmooth(densityMode, densitySpread, random.nextFloat()));
+		int trials = Math.round(MathUtil.distributeSmooth(random.nextFloat(), densityMode, densitySpread));
 
 		for(int i = 0; i < trials; i++) {
 			x += random.nextInt(spread * 2) - spread;

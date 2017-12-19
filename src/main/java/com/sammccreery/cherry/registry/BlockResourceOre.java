@@ -3,7 +3,7 @@ package com.sammccreery.cherry.registry;
 import java.util.Random;
 
 import com.sammccreery.cherry.registry.ResourceMaterial.ItemType;
-import static com.sammccreery.cherry.util.Util.RANDOM;
+import static com.sammccreery.cherry.util.WorldUtil.RANDOM;
 
 import net.minecraft.block.BlockOre;
 import net.minecraft.item.Item;

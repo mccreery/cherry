@@ -1,6 +1,6 @@
 package com.sammccreery.cherry.event;
 
-import static com.sammccreery.cherry.util.Util.RANDOM;
+import static com.sammccreery.cherry.util.WorldUtil.RANDOM;
 
 import java.util.UUID;
 
@@ -12,8 +12,8 @@ import com.sammccreery.cherry.registry.CherryBlocks;
 import com.sammccreery.cherry.registry.CherryItems;
 import com.sammccreery.cherry.registry.Registry;
 import com.sammccreery.cherry.util.Name;
-import com.sammccreery.cherry.util.StackUtils;
-import com.sammccreery.cherry.util.Util;
+import com.sammccreery.cherry.util.StackUtil;
+import com.sammccreery.cherry.util.WorldUtil;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -49,9 +49,9 @@ public class Events extends Registry<Object> {
 			InventoryBasic enderChest = e.harvester.getInventoryEnderChest();
 
 			for(ItemStack stack : e.drops) {
-				StackUtils.storeStack(enderChest, stack);
+				StackUtil.storeStack(enderChest, stack);
 			}
-			Util.teleportEffect(e.world, e.x + 0.5D, e.y + 0.5D, e.z + 0.5D, 10, 0.3F);
+			WorldUtil.teleportEffect(e.world, e.x + 0.5D, e.y + 0.5D, e.z + 0.5D, 10, 0.3F);
 		}
 	}
 
@@ -59,7 +59,7 @@ public class Events extends Registry<Object> {
 	public void onPlayerInteract(PlayerInteractEvent e) {
 		// Empty cauldron using sponge
 		if(!e.world.isRemote && e.action == Action.RIGHT_CLICK_BLOCK
-				&& !Util.isUseForced(e.entityPlayer, e.world, e.x, e.y, e.z)
+				&& !WorldUtil.isUseForced(e.entityPlayer, e.world, e.x, e.y, e.z)
 				&& e.entityPlayer.getHeldItem() != null
 				&& e.entityPlayer.getHeldItem().getItem() == Item.getItemFromBlock(Blocks.sponge)
 				&& e.world.getBlock(e.x, e.y, e.z) == Blocks.cauldron
@@ -93,7 +93,7 @@ public class Events extends Registry<Object> {
 	}
 
 	private static boolean isEndTool(ItemStack stack) {
-		if(StackUtils.isEmpty(stack)) return false;
+		if(StackUtil.isEmpty(stack)) return false;
 
 		Item item = stack.getItem();
 		return item instanceof ItemEndPickaxe

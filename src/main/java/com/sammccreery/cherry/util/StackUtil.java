@@ -2,11 +2,15 @@ package com.sammccreery.cherry.util;
 
 import com.sammccreery.cherry.registry.ResourceMaterial.ItemType;
 
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
-public class StackUtils {
+public final class StackUtil {
+	private StackUtil() {}
+
 	/** Attempts to add the whole stack to the inventory
 	 * @return The remaining stack size */
 	public static int storeStack(IInventory inv, ItemStack stack) {
@@ -121,5 +125,16 @@ public class StackUtils {
 			if(type.base.isInstance(item)) return type;
 		}
 		return null;
+	}
+
+	/** A version of {@link ItemStack#addEnchantment(net.minecraft.enchantment.Enchantment, int)}
+	 * which returns the stack and can enchant to any level */
+	public static ItemStack enchant(ItemStack stack, Enchantment enchantment, int level) {
+		NBTTagCompound compound = new NBTTagCompound();
+		compound.setShort("id", (short)enchantment.effectId);
+		compound.setShort("lvl", (short)level);
+	
+		NBTUtil.ensureList(stack, "ench").appendTag(compound);
+		return stack;
 	}
 }

@@ -3,7 +3,6 @@ package com.sammccreery.cherry.registry;
 import com.sammccreery.cherry.item.ItemFoodCanister;
 import com.sammccreery.cherry.util.Name;
 import com.sammccreery.cherry.util.Name.Format;
-import com.sammccreery.cherry.util.Names;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.creativetab.CreativeTabs;
@@ -27,9 +26,9 @@ public final class CherryItems extends Registry<Item> {
 		for(ResourceMaterial material : ResourceMaterial.values()) {
 			material.init();
 		}
-		registerLocal(heart, Names.HEART);
-		registerLocal(heartShard, Names.HEART_SHARD);
-		registerLocal(foodCanister, Names.FOOD_CANISTER);
+		registerLocal(heart, Name.HEART);
+		registerLocal(heartShard, Name.HEART_SHARD);
+		registerLocal(foodCanister, Name.FOOD_CANISTER);
 	}
 
 	@Override

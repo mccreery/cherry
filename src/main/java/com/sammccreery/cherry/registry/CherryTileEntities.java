@@ -4,7 +4,6 @@ import com.sammccreery.cherry.block.TileEntityHeartCrystal;
 import com.sammccreery.cherry.block.TileEntityHeartLantern;
 import com.sammccreery.cherry.util.Name;
 import com.sammccreery.cherry.util.Name.Format;
-import com.sammccreery.cherry.util.Names;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.tileentity.TileEntity;
@@ -20,7 +19,7 @@ public class CherryTileEntities extends Registry<Class> {
 
 	@Override
 	public void init() {
-		registerLocal(TileEntityHeartCrystal.class, Names.HEART_CRYSTAL);
-		registerLocal(TileEntityHeartLantern.class, Names.HEART_LANTERN);
+		registerLocal(TileEntityHeartCrystal.class, Name.HEART_CRYSTAL);
+		registerLocal(TileEntityHeartLantern.class, Name.HEART_LANTERN);
 	}
 }

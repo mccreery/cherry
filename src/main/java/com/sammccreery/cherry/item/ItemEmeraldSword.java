@@ -2,7 +2,7 @@ package com.sammccreery.cherry.item;
 
 import java.util.List;
 
-import com.sammccreery.cherry.util.Util;
+import com.sammccreery.cherry.util.StackUtil;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
@@ -18,6 +18,6 @@ public class ItemEmeraldSword extends ItemSword {
 	@Override
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public void getSubItems(Item item, CreativeTabs tab, List items) {
-		items.add(Util.enchant(new ItemStack(item), Enchantment.looting, 2));
+		items.add(StackUtil.enchant(new ItemStack(item), Enchantment.looting, 2));
 	}
 }

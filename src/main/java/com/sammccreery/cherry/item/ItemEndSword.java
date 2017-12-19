@@ -2,7 +2,8 @@ package com.sammccreery.cherry.item;
 
 import java.util.List;
 
-import com.sammccreery.cherry.util.Util;
+import com.sammccreery.cherry.util.MathUtil;
+import com.sammccreery.cherry.util.WorldUtil;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
@@ -39,7 +40,7 @@ public class ItemEndSword extends ItemSword {
 
 		if(hasCapture) {
 			tooltip.add(I18n.format("gui.health",
-				Util.toPlaces(capture.getHealth() / 2, 1), Util.toPlaces(capture.getMaxHealth() / 2, 1)));
+				MathUtil.formatPlaces(capture.getHealth() / 2, 1), MathUtil.formatPlaces(capture.getMaxHealth() / 2, 1)));
 		}
 	}
 
@@ -77,7 +78,7 @@ public class ItemEndSword extends ItemSword {
 			capture.writeToNBT(entityTag);
 			entityTag.setString("id", EntityList.getEntityString(capture));
 
-			Util.teleportEffect(world, capture.posX, capture.posY, capture.posZ, 30, 1.0F);
+			WorldUtil.teleportEffect(world, capture.posX, capture.posY, capture.posZ, 30, 1.0F);
 
 			if(!world.isRemote) {
 				world.removeEntity(capture);
@@ -104,7 +105,7 @@ public class ItemEndSword extends ItemSword {
 			} else {
 				capture.setLocationAndAngles(x + 0.5F, y, z + 0.5F, 0, 0);
 			}
-			Util.teleportEffect(world, x, y + 1, z, 30, 1.0F);
+			WorldUtil.teleportEffect(world, x, y + 1, z, 30, 1.0F);
 
 			//if(world.canPlaceEntityOnSide(world.getBlock(x, y, z), x, y, z, world.getBlock(x, y, z).getCollisionBoundingBoxFromPool(world, x, y, z) == null, side, player, itemstack)) {
 				world.spawnEntityInWorld(capture);

@@ -1,6 +1,6 @@
 package com.sammccreery.cherry.block;
 
-import static com.sammccreery.cherry.util.Util.RANDOM;
+import static com.sammccreery.cherry.util.WorldUtil.RANDOM;
 
 import java.util.Random;
 

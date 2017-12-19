@@ -3,7 +3,7 @@ package com.sammccreery.cherry.registry;
 import java.util.List;
 
 import com.sammccreery.cherry.registry.ResourceMaterial.ItemType;
-import com.sammccreery.cherry.util.StackUtils;
+import com.sammccreery.cherry.util.StackUtil;
 
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
@@ -57,7 +57,7 @@ public class ToolUpgrade extends ShapedRecipes {
 	/** @return {@code true} if the stack satisfies the template in the given slot ({@code x}, {@code y}) */
 	private boolean checkSlot(int x, int y, ItemStack stack) {
 		if(x < 0 || x >= recipeWidth || y < 0 || y >= recipeHeight) {
-			return StackUtils.isEmpty(stack);
+			return StackUtil.isEmpty(stack);
 		} else {
 			char c = ((String)type.recipe[y]).charAt(x);
 
@@ -70,9 +70,9 @@ public class ToolUpgrade extends ShapedRecipes {
 
 				//return ItemStack.areItemStacksEqual(stack, resource);
 			} else if(c == '|' && (y*3 + x) == type.firstStick) {
-				return StackUtils.getToolType(stack) == type;
+				return StackUtil.getToolType(stack) == type;
 			} else {
-				return StackUtils.isEmpty(stack);
+				return StackUtil.isEmpty(stack);
 			}
 		}
 	}

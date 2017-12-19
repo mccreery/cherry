@@ -1,6 +1,6 @@
 package com.sammccreery.cherry.registry;
 
-import com.sammccreery.cherry.util.StackUtils;
+import com.sammccreery.cherry.util.StackUtil;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.InventoryCrafting;
@@ -33,7 +33,7 @@ public class SurroundCrafting implements IRecipe {
 
 	@Override
 	public boolean matches(InventoryCrafting inventory, World worldIn) {
-		return !StackUtils.isEmpty(getCraftingResult(inventory));
+		return !StackUtil.isEmpty(getCraftingResult(inventory));
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class SurroundCrafting implements IRecipe {
 				for(int x = 0; x < 3; x++, i++) {
 					ItemStack stack = inventory.getStackInSlot(i);
 
-					if(StackUtils.isEmpty(stack)) System.out.print('_');
+					if(StackUtil.isEmpty(stack)) System.out.print('_');
 					else if(isValidCore(stack)) System.out.print('C');
 					else if(isCompatibleSurround(null, stack)) System.out.print('S');
 					else System.out.print('?');
@@ -62,7 +62,7 @@ public class SurroundCrafting implements IRecipe {
 		for(int i = 0; i < inventory.getSizeInventory(); i++) {
 			ItemStack stack = inventory.getStackInSlot(i);
 
-			if(StackUtils.isEmpty(stack)) {
+			if(StackUtil.isEmpty(stack)) {
 				continue;
 			} else if(isValidCore(stack)) {
 				if(core != null) return null;

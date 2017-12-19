@@ -18,7 +18,6 @@ import com.sammccreery.cherry.item.ItemEndPickaxe;
 import com.sammccreery.cherry.item.ItemEndShovel;
 import com.sammccreery.cherry.item.ItemEndSword;
 import com.sammccreery.cherry.item.ItemPickaxe;
-import com.sammccreery.cherry.util.ContainerDummy;
 import com.sammccreery.cherry.util.Name;
 
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -26,8 +25,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockCompressed;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
@@ -253,7 +254,12 @@ public enum ResourceMaterial {
 		}
 
 		public InventoryCrafting getTemplate(ItemStack resource) {
-			InventoryCrafting inv = new InventoryCrafting(new ContainerDummy(), 3, 3);
+			InventoryCrafting inv = new InventoryCrafting(new Container() {
+				@Override
+				public boolean canInteractWith(EntityPlayer player) {
+					return true;
+				}
+			}, 3, 3);
 			final ItemStack stick = new ItemStack(Items.stick);
 
 			int height = recipe.length;

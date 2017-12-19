@@ -2,7 +2,7 @@ package com.sammccreery.cherry.block;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import static com.sammccreery.cherry.util.Util.RANDOM;
+import static com.sammccreery.cherry.util.WorldUtil.RANDOM;
 
 public class TileEntityHeartLantern extends TileEntity {
 	float chargeLevel;

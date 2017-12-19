@@ -11,7 +11,6 @@ import com.sammccreery.cherry.item.ItemHeartLantern;
 import com.sammccreery.cherry.item.ItemSnowDoor;
 import com.sammccreery.cherry.util.Name;
 import com.sammccreery.cherry.util.Name.Format;
-import com.sammccreery.cherry.util.Names;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
@@ -46,21 +45,21 @@ public final class CherryBlocks extends Registry<Block> {
 
 	@Override
 	public void init() {
-		registerLocal(wideBrick, Names.WIDE_BRICK);
-		registerLocal(fancyBrick, Names.FANCY_BRICK);
-		registerLocal(snowBrick, Names.SNOW_BRICK);
-		registerLocal(snowStairs, Names.SNOW_STAIRS);
-		registerLocal(snowBrickStairs, Names.SNOW_BRICK_STAIRS);
-		registerLocal(icePane, Names.ICE_PANE);
+		registerLocal(wideBrick, Name.WIDE_BRICK);
+		registerLocal(fancyBrick, Name.FANCY_BRICK);
+		registerLocal(snowBrick, Name.SNOW_BRICK);
+		registerLocal(snowStairs, Name.SNOW_STAIRS);
+		registerLocal(snowBrickStairs, Name.SNOW_BRICK_STAIRS);
+		registerLocal(icePane, Name.ICE_PANE);
 
-		applyNames(snowDoor, Names.SNOW_DOOR);
-		GameRegistry.registerBlock(snowDoor, ItemSnowDoor.class, Names.SNOW_DOOR.format(Format.SNAKE, false));
+		applyNames(snowDoor, Name.SNOW_DOOR);
+		GameRegistry.registerBlock(snowDoor, ItemSnowDoor.class, Name.SNOW_DOOR.format(Format.SNAKE, false));
 
 		// Special ItemBlocks
-		applyNames(heartLantern, Names.HEART_LANTERN);
-		GameRegistry.registerBlock(heartLantern, ItemHeartLantern.class, Names.HEART_LANTERN.format(Format.SNAKE, false));
+		applyNames(heartLantern, Name.HEART_LANTERN);
+		GameRegistry.registerBlock(heartLantern, ItemHeartLantern.class, Name.HEART_LANTERN.format(Format.SNAKE, false));
 
-		applyNames(heartCrystal, Names.HEART_CRYSTAL);
-		GameRegistry.registerBlock(heartCrystal, ItemHeartCrystal.class, Names.HEART_CRYSTAL.format(Format.SNAKE, false));
+		applyNames(heartCrystal, Name.HEART_CRYSTAL);
+		GameRegistry.registerBlock(heartCrystal, ItemHeartCrystal.class, Name.HEART_CRYSTAL.format(Format.SNAKE, false));
 	}
 }
